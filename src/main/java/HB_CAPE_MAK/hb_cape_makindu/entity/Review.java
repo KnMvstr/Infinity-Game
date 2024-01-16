@@ -1,7 +1,15 @@
 package HB_CAPE_MAK.hb_cape_makindu.entity;
 
+import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import java.time.LocalDateTime;
 
 
@@ -13,31 +21,50 @@ import java.time.LocalDateTime;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(JsonViews.ReviewPrivateView.class)
     private Long id;
 
+    @NotNull
     @Column(length = 255, nullable = false)
+    @JsonView(JsonViews.ReviewPublicView.class)
     private String description;
 
+    @CreatedDate
     @Column
+    @JsonView(JsonViews.ReviewPrivateView.class)
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
+    @JsonView(JsonViews.ReviewPublicView.class)
     private float note;
 
+    @Column (nullable = true)
+    @JsonView(JsonViews.ReviewPublicView.class)
+    private String image;
+
+    @LastModifiedDate
+    @JsonView(JsonViews.ReviewPublicView.class)
     @Column(name = "lastModify")
     private LocalDateTime lastModify;
 
     @ManyToOne
-    @JoinColumn(name = "player_id", nullable = false, unique = true)
-    private Player player;
+    @CreatedBy
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JsonView(JsonViews.ReviewPublicView.class)
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "game_id", nullable = false)
+    @JsonView(JsonViews.ReviewPublicView.class)
     private Game game;
 
     @ManyToOne
-    @JoinColumn(name = "moderator_id", nullable = false, unique = true)
-    private Moderator moderator;
+    @LastModifiedBy
+    @JoinColumn(name = "user_id",insertable=false, updatable=false )
+    @JsonView(JsonViews.ReviewFullView.class)
+    private User moderator;
+
+
 
 }
 
