@@ -4,6 +4,7 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.ReviewDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Review;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.ReviewRepository;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ public class ReviewService implements DAOServiceInterface {
         Review r = new Review();
         r.setId(id);
         r.setDescription(reviewDTO.getDescription());
-        r.setNote(reviewDTO.getNote());
+        r.setRating(reviewDTO.getRating());
         r.setImage(reviewDTO.getImage());
         r.setUser(reviewDTO.getUser());
         r.setGame(reviewDTO.getGame());

@@ -11,6 +11,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 
 @Entity
@@ -36,7 +38,7 @@ public class Review {
 
     @Column(nullable = false)
     @JsonView(JsonViews.ReviewPublicView.class)
-    private float note;
+    private float rating;
 
     @Column (nullable = true)
     @JsonView(JsonViews.ReviewPublicView.class)
@@ -45,7 +47,7 @@ public class Review {
     @LastModifiedDate
     @JsonView(JsonViews.ReviewPublicView.class)
     @Column(name = "lastModify")
-    private LocalDateTime lastModify;
+    private LocalDateTime moderatedAt;
 
     @ManyToOne
     @CreatedBy
@@ -64,7 +66,9 @@ public class Review {
     @JsonView(JsonViews.ReviewFullView.class)
     private User moderator;
 
-
+    public Date getCreatedAt() {
+        return Date.from(createdAt.atZone(ZoneId.systemDefault()).toInstant());
+    }
 
 }
 

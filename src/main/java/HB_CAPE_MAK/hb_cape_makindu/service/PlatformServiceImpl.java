@@ -4,6 +4,8 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.PlatformDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Platform;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.PlatformRepository;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.SpecificServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class PlatformService implements DAOServiceInterface{
+public class PlatformServiceImpl implements SpecificServiceInterface {
 
     private final PlatformRepository platformRepository;
 
@@ -24,6 +26,11 @@ public class PlatformService implements DAOServiceInterface{
     @Override
     public Optional findById(Long id) {
         return platformRepository.findById(id);
+    }
+
+    @Override
+    public Optional findByName(String name) {
+        return platformRepository.findByName(name);
     }
 
     public Platform persist(PlatformDTO platformDTO, Long id) {

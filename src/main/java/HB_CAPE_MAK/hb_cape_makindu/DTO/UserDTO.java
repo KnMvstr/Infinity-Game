@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class UserPostDTO {
+public class UserDTO {
 
     @NotBlank
     protected String firstName;

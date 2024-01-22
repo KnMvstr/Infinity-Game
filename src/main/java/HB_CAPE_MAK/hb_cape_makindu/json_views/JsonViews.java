@@ -4,8 +4,13 @@ public class JsonViews {
 
 //     USER VIEW
     public interface UserPublicView { }
-    public interface UserPrivateView extends UserPublicView { }
+    public interface UserPrivateView extends UserPublicView, GamerPublicView, ModeratorPublicView  { }
     public interface UserFullView extends UserPublicView, UserPrivateView { }
+//    GAMER VIEW
+    public interface GamerPublicView { }
+//    MODERATOR VIEW
+    public interface ModeratorPublicView { }
+
 
 
 //     BUSINESS MODEL VIEW
@@ -34,15 +39,21 @@ public class JsonViews {
     public interface GenrePrivateView extends GenrePublicView {}
     public interface GenreFullView extends GenrePublicView, GenrePrivateView {}
 
+
+
 //    PLATFORM VIEW
     public interface PlatformPublicView {}
     public interface PlatformPrivateView extends PlatformPublicView {}
     public interface PlatformFullView extends PlatformPublicView, PlatformPrivateView {}
 
+
+
 //    PUBLISHER VIEW
     public interface PublisherPublicView {}
     public interface PublisherPrivateView extends PublisherPublicView {}
     public interface PublisherFullView extends PublisherPublicView, PublisherPrivateView {}
+
+
 
 //    REVIEW VIEW
     public interface ReviewPublicView {}

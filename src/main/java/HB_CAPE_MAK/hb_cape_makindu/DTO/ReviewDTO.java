@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,6 +17,7 @@ public class ReviewDTO {
     @NotBlank
     private String description;
     @NotBlank
+    @Range(min=0, max=5)
     private float note;
     @NotBlank
     private String image;
@@ -25,4 +27,8 @@ public class ReviewDTO {
     private Game game;
     @NotBlank
     private User moderator;
+
+    @NotBlank
+    @Range(min = 0, max = 5)
+    private float rating;
 }

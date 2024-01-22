@@ -4,6 +4,8 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.GenreRepository;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.SpecificServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class GenreService implements DAOServiceInterface {
+public class GenreServiceImpl implements SpecificServiceInterface {
     private final GenreRepository genreRepository;
 
 
@@ -23,6 +25,11 @@ public class GenreService implements DAOServiceInterface {
     @Override
     public Optional<Genre> findById(Long id) {
         return genreRepository.findById(id);
+    }
+
+    @Override
+    public Optional findByName(String name) {
+        return genreRepository.findByName(name);
     }
 
     public Genre persist(GenreDTO genreDTO, Long id) {

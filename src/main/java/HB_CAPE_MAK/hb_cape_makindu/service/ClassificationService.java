@@ -4,6 +4,7 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.ClassificationDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Classification;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.ClassificationRepository;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class ClassificationService implements DAOServiceInterface{
+public class ClassificationService implements DAOServiceInterface {
    private ClassificationRepository classificationRepository;
     @Override
     public List findAll() {

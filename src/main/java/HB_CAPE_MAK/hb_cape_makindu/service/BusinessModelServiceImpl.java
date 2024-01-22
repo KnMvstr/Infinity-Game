@@ -4,6 +4,8 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.BusinessModelDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.BusinessModel;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.BusinessModelRepository;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.SpecificServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +14,23 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class BusinessModelService implements DAOServiceInterface {
+public class BusinessModelServiceImpl implements SpecificServiceInterface {
 
     private BusinessModelRepository businessModelRepository;
+
     @Override
     public List findAll() {
         return businessModelRepository.findAll();
     }
 
     @Override
-    public Optional<BusinessModel> findById(Long id) {
+    public Optional findById(Long id) {
         return businessModelRepository.findById(id);
+    }
+
+    @Override
+    public Optional findByName(String name) {
+        return businessModelRepository.findByName(name);
     }
     public BusinessModel persist(BusinessModelDTO businessModelDTO, Long id) {
         if (id != null && businessModelRepository.findById(id).isEmpty()) {
@@ -38,4 +46,5 @@ public class BusinessModelService implements DAOServiceInterface {
         // Si id = null, le save fera un insert, sinon un update
         return businessModelRepository.saveAndFlush(p);
     }
+
 }

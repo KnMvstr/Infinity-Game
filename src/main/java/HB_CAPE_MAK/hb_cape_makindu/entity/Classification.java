@@ -1,6 +1,5 @@
 package HB_CAPE_MAK.hb_cape_makindu.entity;
 
-import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.SluggerInterface;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
@@ -16,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Classification implements SluggerInterface {
+public class Classification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(JsonViews.ClassificationPrivateView.class)
@@ -38,8 +37,5 @@ public class Classification implements SluggerInterface {
     @JsonView(JsonViews.ClassificationFullView.class)
     private List<Game> games = new ArrayList<>();
 
-    @Override
-    public String getField() {
-        return name;
-    }
+
 }
