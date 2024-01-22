@@ -3,6 +3,7 @@ package HB_CAPE_MAK.hb_cape_makindu.entity;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
+import jdk.jfr.Timestamp;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.data.annotation.CreatedBy;
@@ -32,6 +33,7 @@ public class Review {
     private String description;
 
     @CreatedDate
+    @Timestamp
     @Column
     @JsonView(JsonViews.ReviewPrivateView.class)
     private LocalDateTime createdAt;

@@ -1,9 +1,15 @@
 package HB_CAPE_MAK.hb_cape_makindu.service;
 
+import HB_CAPE_MAK.hb_cape_makindu.entity.Moderator;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.repository.UserRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
@@ -12,7 +18,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService implements DAOServiceInterface<User> {
+public class UserService implements DAOServiceInterface<User>, UserDetailsService {
 
     private UserRepository userRepository;
 
@@ -25,6 +31,26 @@ public class UserService implements DAOServiceInterface<User> {
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = (User) userRepository.findByPseudo(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                userGrantedAuthority(user)
+        );
+    }
+
+    private List<GrantedAuthority> userGrantedAuthority(User user) {
+        if (user instanceof Moderator) {
+            return List.of(new SimpleGrantedAuthority("ROLE_MODERATOR"));
+        }
+        return List.of(new SimpleGrantedAuthority("ROLE_GAMER"));
+    }
+}
 
 //    public User create(UserPostDTO userDTO) {
 //        User user = new User();
@@ -50,4 +76,4 @@ public class UserService implements DAOServiceInterface<User> {
 //        userRepository.flush();
 //        return user;
 //    }
-}
+

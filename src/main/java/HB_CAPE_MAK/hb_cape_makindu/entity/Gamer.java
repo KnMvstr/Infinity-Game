@@ -8,8 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -21,4 +23,6 @@ public class Gamer extends User{
     @Column(nullable = false)
     @JsonView(JsonViews.GamerPublicView.class)
     private LocalDate birthAt;
+
+
 }
