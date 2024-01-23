@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface PublisherRepository extends JpaRepository<Publisher, Long> {
-
     Optional findByName(String name);
 }
