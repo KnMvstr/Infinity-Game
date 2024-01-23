@@ -2,7 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.ReviewDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Review;
-import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
+import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.ReviewRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.ReviewServiceInterface;
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ public class ReviewServiceImpl implements ReviewServiceInterface {
 
     public Review persist(ReviewDTO reviewDTO, Long id) {
         if (id != null && reviewRepository.findById(id).isEmpty()) {
-            throw new NotFoundInstantFakingException(
+            throw new NotFoundCapEntException(
                     "Review", "id", id
             );
         }

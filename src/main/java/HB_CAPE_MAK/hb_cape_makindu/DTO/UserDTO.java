@@ -18,27 +18,25 @@ import java.time.LocalDateTime;
 public class UserDTO {
 
     @NotBlank
-    protected String firstName;
-
-    @NotBlank
-    protected String name;
-
-    @NotBlank
     protected String pseudo;
 
-    @Email
-    @NotBlank
-    protected String email;
+    @Email(message = "Veuillez renseigner une adresse email valide")
+    @NotBlank(message = "Veuillez renseigner une adresse email")
+    protected String username;
 
-    @Past
-    private LocalDate birthAt;
-
-    @NotBlank
+    @NotBlank(message = "Veuillez renseigner un mot de passe")
+    @Size(message = "Le mot de passe doit comporter au moins 8 caractères", min = 8)
     protected String pwd;
 
+//
+//    @Past
+//    private LocalDate birthAt;
+
+
+
 //    @Pattern(regexp = "((\\+33|0)[0-9]{10})", message = "Invalid phone number format")
-    @NotBlank
-    private String cellPhoneNumber;
+//    @NotBlank
+//    private String cellPhoneNumber;
 
 
 

@@ -2,7 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.PublisherDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Publisher;
-import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
+import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.PublisherRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.SpecificServiceInterface;
@@ -33,7 +33,7 @@ public class PublisherServiceImpl implements SpecificServiceInterface {
 
     public Publisher persist(PublisherDTO publisherDTO, Long id) {
         if (id != null && publisherRepository.findById(id).isEmpty()) {
-            throw new NotFoundInstantFakingException(
+            throw new NotFoundCapEntException(
                     "Publisher", "id", id
             );
         }

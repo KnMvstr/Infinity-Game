@@ -2,7 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.BusinessModelDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.BusinessModel;
-import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
+import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.BusinessModelRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.SpecificServiceInterface;
@@ -34,7 +34,7 @@ public class BusinessModelServiceImpl implements SpecificServiceInterface {
     }
     public BusinessModel persist(BusinessModelDTO businessModelDTO, Long id) {
         if (id != null && businessModelRepository.findById(id).isEmpty()) {
-            throw new NotFoundInstantFakingException(
+            throw new NotFoundCapEntException(
                     "Business", "id", id
             );
         }

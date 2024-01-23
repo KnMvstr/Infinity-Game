@@ -2,7 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.GameDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
-import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
+import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.GameRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.GameServiceInterface;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class GameServiceImpl implements GameServiceInterface {
 
     public Game persist(GameDTO gameDTO, Long id) {
         if (id != null && gameRepository.findById(id).isEmpty()) {
-            throw new NotFoundInstantFakingException(
+            throw new NotFoundCapEntException(
                     "Game", "id", id
             );
         }

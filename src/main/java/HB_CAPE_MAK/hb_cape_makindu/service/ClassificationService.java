@@ -2,7 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.ClassificationDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Classification;
-import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
+import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.ClassificationRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ public class ClassificationService implements DAOServiceInterface {
 
     public Classification persist(ClassificationDTO classificationDTO, Long id) {
         if (id != null && classificationRepository.findById(id).isEmpty()) {
-            throw new NotFoundInstantFakingException(
+            throw new NotFoundCapEntException(
                     "Business", "id", id
             );
         }

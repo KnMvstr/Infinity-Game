@@ -6,14 +6,14 @@
   <f:form method="POST" modelAttribute="userForm" class="form-signin">
     <h2 class="form-signin-heading">Create your account</h2>
     <div class="form-group ${status.error ? 'has-error' : ''}">
-      <f:input type="text" path="name" class="form-control" placeholder="Email"
+      <f:input type="text" path="username" class="form-control" placeholder="Email"
                autofocus="true"/>
-      <f:errors path="name" cssClass="invalid-feedback"/>
+      <f:errors path="username" cssClass="invalid-feedback"/>
     </div>
     <div class="form-group ${status.error ? 'has-error' : ''}">
-      <f:input type="text" path="name" class="form-control" placeholder="Account name"
+      <f:input type="text" path="pseudo" class="form-control" placeholder="Account name"
                autofocus="true"/>
-      <f:errors path="name" cssClass="invalid-feedback"/>
+      <f:errors path="pseudo" cssClass="invalid-feedback"/>
     </div>
     <div class="form-group ${status.error ? 'has-error' : ''}">
       <f:input type="password" path="pwd" class="form-control" placeholder="Password"/>

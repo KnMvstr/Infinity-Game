@@ -4,6 +4,7 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.UserDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Gamer;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Moderator;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
+import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.UserRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -23,6 +25,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserServiceInterface, UserDetailsService {
 
     private UserRepository userRepository;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public List<User> findAll() {
@@ -32,6 +35,7 @@ public class UserServiceImpl implements UserServiceInterface, UserDetailsService
     @Override
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
+//                .orElseThrow(NotFoundCapEntException::getValue);
     }
 
     @Override
@@ -51,19 +55,20 @@ public class UserServiceImpl implements UserServiceInterface, UserDetailsService
         );
     }
 
+
     private List<GrantedAuthority> userGrantedAuthority(User user) {
         if (user instanceof Moderator) {
-            return List.of(new SimpleGrantedAuthority("ROLE_MODERATOR"));
+            return List.of(new SimpleGrantedAuthority("MODERATOR"));
         }
-        return List.of(new SimpleGrantedAuthority("ROLE_GAMER"));
+        return List.of(new SimpleGrantedAuthority("GAMER"));
     }
 
 
     public User create(UserDTO userDTO) {
         User user = new Gamer();
         user.setPseudo(userDTO.getPseudo());
-        user.setEmail(userDTO.getEmail());
-        user.setPwd(userDTO.getPwd());
+        user.setEmail(userDTO.getUsername().toLowerCase());
+        user.setPwd(passwordEncoder.encode(userDTO.getPwd()));
 
         return userRepository.saveAndFlush(user);
     }

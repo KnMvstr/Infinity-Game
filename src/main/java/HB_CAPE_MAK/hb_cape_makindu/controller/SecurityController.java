@@ -3,6 +3,7 @@ package HB_CAPE_MAK.hb_cape_makindu.controller;
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserDTO;
 import HB_CAPE_MAK.hb_cape_makindu.mapping.UrlRoute;
 import HB_CAPE_MAK.hb_cape_makindu.service.UserServiceImpl;
+import ch.qos.logback.core.joran.util.beans.BeanDescriptionFactory;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -48,4 +49,6 @@ public class SecurityController {
         mav.setViewName("security/login");
         return mav;
     }
+
+
 }

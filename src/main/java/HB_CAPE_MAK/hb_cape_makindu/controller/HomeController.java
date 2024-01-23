@@ -16,8 +16,6 @@ import java.security.Principal;
 @AllArgsConstructor
 public class HomeController {
 
-    private ReviewServiceImpl reviewServiceImpl;
-
     @GetMapping("/")
     public ModelAndView index(
             ModelAndView mav,

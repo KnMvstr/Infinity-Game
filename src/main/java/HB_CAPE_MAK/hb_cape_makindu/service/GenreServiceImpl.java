@@ -2,7 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
-import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
+import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.GenreRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.SpecificServiceInterface;
@@ -34,7 +34,7 @@ public class GenreServiceImpl implements SpecificServiceInterface {
 
     public Genre persist(GenreDTO genreDTO, Long id) {
         if (id != null && genreRepository.findById(id).isEmpty()) {
-            throw new NotFoundInstantFakingException(
+            throw new NotFoundCapEntException(
                     "Genre", "id", id
             );
         }

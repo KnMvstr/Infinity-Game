@@ -2,7 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.PlatformDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Platform;
-import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundInstantFakingException;
+import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.PlatformRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.SpecificServiceInterface;
@@ -35,7 +35,7 @@ public class PlatformServiceImpl implements SpecificServiceInterface {
 
     public Platform persist(PlatformDTO platformDTO, Long id) {
         if (id != null && platformRepository.findById(id).isEmpty()) {
-            throw new NotFoundInstantFakingException(
+            throw new NotFoundCapEntException(
                     "Platform", "id", id
             );
         }

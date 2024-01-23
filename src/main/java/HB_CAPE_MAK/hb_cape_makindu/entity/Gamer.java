@@ -4,6 +4,7 @@ import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.time.LocalDate;
 import java.util.Collection;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,9 +22,7 @@ import java.util.Collection;
 @DiscriminatorValue ("GAMER")
 public class Gamer extends User{
 
-    @Column(nullable = false)
     @JsonView(JsonViews.GamerPublicView.class)
     private LocalDate birthAt;
-
 
 }
