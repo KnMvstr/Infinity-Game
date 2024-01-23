@@ -25,7 +25,7 @@ public class UserDTO {
     protected String username;
 
     @NotBlank(message = "Veuillez renseigner un mot de passe")
-    @Size(message = "Le mot de passe doit comporter au moins 8 caractères", min = 8)
+    @Size(message = "Le mot de passe doit comporter au moins 8 caractères", min = 5)
     protected String pwd;
 
 //

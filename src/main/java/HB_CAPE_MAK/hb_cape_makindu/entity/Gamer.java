@@ -20,7 +20,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @DiscriminatorValue ("GAMER")
-public class Gamer extends User{
+public class Gamer extends User {
 
     @JsonView(JsonViews.GamerPublicView.class)
     private LocalDate birthAt;

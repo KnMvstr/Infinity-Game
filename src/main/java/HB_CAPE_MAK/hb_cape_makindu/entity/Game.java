@@ -1,5 +1,7 @@
 package HB_CAPE_MAK.hb_cape_makindu.entity;
 
+import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.NomenclatureInterface;
+import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.SluggerInterface;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
@@ -14,7 +16,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Game  {
+public class Game implements SluggerInterface,
+        NomenclatureInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(JsonViews.GamePrivateView.class)
@@ -53,6 +56,10 @@ public class Game  {
     @JsonView(JsonViews.GamePublicView.class)
     private BusinessModel businessModel;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Moderator moderator;
+
     @ManyToMany
     @JoinTable(
             name = "game_platform",
@@ -70,6 +77,18 @@ public class Game  {
     @OneToMany(mappedBy = "game")
     @JsonView(JsonViews.GamePublicView.class)
     private List<Review> reviews = new ArrayList<>();
+
+    @Override
+    public String getField() {
+        return name;
+    }
+
+    public void addPlatform(Platform platform) {
+        if (!platforms.contains(platform)) {
+            platforms.add(platform);
+        }
+    }
+
 
     //Pas de relation géré avec un modérateur
 }

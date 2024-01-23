@@ -4,8 +4,8 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.GenreRepository;
-import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
-import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.SpecificServiceInterface;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOEntityInterface;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,23 +14,20 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class GenreServiceImpl implements SpecificServiceInterface {
+public class GenreServiceImpl implements DAOEntityInterface {
     private final GenreRepository genreRepository;
 
-
     @Override
-    public List findAll() {
+    public List<Genre> findAll() {
         return genreRepository.findAll();
     }
-    @Override
-    public Optional<Genre> findById(Long id) {
-        return genreRepository.findById(id);
-    }
 
     @Override
-    public Optional findByName(String name) {
-        return genreRepository.findByName(name);
+    public Genre findById(Long id) {
+        return genreRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
+
 
     public Genre persist(GenreDTO genreDTO, Long id) {
         if (id != null && genreRepository.findById(id).isEmpty()) {

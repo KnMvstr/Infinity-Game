@@ -4,25 +4,28 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.ClassificationDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Classification;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.ClassificationRepository;
-import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOServiceInterface;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOEntityInterface;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @AllArgsConstructor
-public class ClassificationService implements DAOServiceInterface {
+public class ClassificationServiceImpl implements DAOEntityInterface<Classification> {
    private ClassificationRepository classificationRepository;
+
     @Override
-    public List findAll() {
+    public List<Classification> findAll() {
         return classificationRepository.findAll();
     }
 
     @Override
-    public Optional<Classification> findById(Long id) {
-        return classificationRepository.findById(id);
+    public Classification findById(Long id) {
+        return classificationRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     public Classification persist(ClassificationDTO classificationDTO, Long id) {

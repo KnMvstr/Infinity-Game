@@ -4,7 +4,6 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.ReviewDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Review;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.ReviewRepository;
-import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.ReviewServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +12,11 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class ReviewServiceImpl implements ReviewServiceInterface {
+public class ReviewServiceImpl {
 
     private final ReviewRepository reviewRepository;
 
-    @Override
-    public List findAll() {
-        return reviewRepository.findAll();
-    }
 
-    @Override
-    public Optional findById(Long id) {
-        return reviewRepository.findById(id);
-    }
 
     public Review persist(ReviewDTO reviewDTO, Long id) {
         if (id != null && reviewRepository.findById(id).isEmpty()) {

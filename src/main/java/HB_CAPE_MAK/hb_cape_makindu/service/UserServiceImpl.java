@@ -4,9 +4,9 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.UserDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Gamer;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Moderator;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
-import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.UserRepository;
-import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.UserServiceInterface;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOFindByIdInterface;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,30 +18,21 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserServiceInterface, UserDetailsService {
+public class UserServiceImpl implements DAOFindByIdInterface<User>, UserDetailsService {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
-    @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
-//                .orElseThrow(EntityNotFoundException::getValue);
-    }
-
-    @Override
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -72,6 +63,7 @@ public class UserServiceImpl implements UserServiceInterface, UserDetailsService
 
         return userRepository.saveAndFlush(user);
     }
+
 
 }
 

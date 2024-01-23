@@ -19,5 +19,5 @@ import lombok.Setter;
 public class Moderator extends User {
 
     @JsonView(JsonViews.ModeratorPublicView.class)
-    private String cellPhoneNumber;
+    private String phoneNumber;
 }

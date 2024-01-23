@@ -58,6 +58,10 @@ public class Review {
     private User user;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
+    private Gamer gamer;
+
+    @ManyToOne
     @JoinColumn(name = "game_id", nullable = false)
     @JsonView(JsonViews.ReviewPublicView.class)
     private Game game;

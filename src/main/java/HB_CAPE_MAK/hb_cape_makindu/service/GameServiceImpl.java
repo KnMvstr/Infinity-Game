@@ -4,7 +4,8 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.GameDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.GameRepository;
-import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.GameServiceInterface;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOFindByIdInterface;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,31 +14,13 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class GameServiceImpl implements GameServiceInterface {
+public class GameServiceImpl implements DAOFindByIdInterface<Game> {
     private GameRepository gameRepository;
-    @Override
-    public List findAll() {
-        return gameRepository.findAll();
-    }
 
     @Override
-    public Optional<Game> findById(Long id) {
-        return gameRepository.findById(id);
-    }
-
-    @Override
-    public List<Game> findAllByOrderByNameAsc() {
-        return gameRepository.findAllByOrderByNameAsc();
-    }
-
-    @Override
-    public List<Game> findAllByOrderByNameDesc() {
-        return gameRepository.findAllByOrderByNameDesc();
-    }
-
-    @Override
-    public Optional<Game> findByNameIsLikeIgnoreCase(String name) {
-        return gameRepository.findByNameIsLikeIgnoreCase(name);
+    public Game findById(Long id) {
+        return gameRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     public Game persist(GameDTO gameDTO, Long id) {
