@@ -1,14 +1,14 @@
 
 * {
-    --bs-body-bg: #272727;
-    --bs-body-color: #fff;
+    --bs-body-bg: #323232;
+    --bs-body-color: #000000;
     --bs-secondary: #323232;
     --bs-primary: #ff5400;
 }
 
 .btn-primary {
     --bs-btn-color: #fff;
-    --bs-btn-bg: #ff2020;
+    --bs-btn-bg: #fca311;
     --bs-btn-border-color: var(--bs-primary);
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: #ff8000;
@@ -22,9 +22,32 @@
     --bs-btn-disabled-bg: #a03c00;
     --bs-btn-disabled-border-color: #a03c00;
 }
+h1,h2,h3,h4,h5,h6,label,.btn {
+    font-family: Monospaced, monospace  ;
+}
+label {
+    font-family: Helvetica Neue, sans-serif;
+    color: #f0edee;
+    font-size: medium;
+}
+
+
 
 h2 {
     font-size: 1.2em;
+}
+h1{
+    color: #f0edee;
+}
+p{
+    color: #f0edee;
+}
+a {
+    text-decoration: none;
+    color: #f0edee;
+}
+a:hover{
+    color:#ff5400
 }
 
 .invalid-feedback {

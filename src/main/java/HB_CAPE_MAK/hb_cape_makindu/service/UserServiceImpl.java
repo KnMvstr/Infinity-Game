@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserServiceInterface, UserDetailsService
     @Override
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
-//                .orElseThrow(NotFoundCapEntException::getValue);
+//                .orElseThrow(EntityNotFoundException::getValue);
     }
 
     @Override
