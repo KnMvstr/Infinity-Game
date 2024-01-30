@@ -96,6 +96,13 @@
             <version>6.1.2</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.13.0</version>
+            <scope>runtime</scope>
+        </dependency>
 <!--dependance pour le Faker-->
         <dependency>
             <groupId>com.github.javafaker</groupId>

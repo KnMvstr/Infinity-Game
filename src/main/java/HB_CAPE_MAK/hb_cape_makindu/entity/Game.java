@@ -27,19 +27,24 @@ public class Game implements SluggerInterface,
     @JsonView(JsonViews.GamePublicView.class)
     private String name;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
     @JsonView(JsonViews.GamePublicView.class)
     private String description;
 
-    @Column(name = "release_date")
+    @Column(name = "release_date", nullable = false)
     @PastOrPresent
     @JsonView(JsonViews.GamePublicView.class)
     private LocalDate releaseDate;
 
+    @Column(nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
     private String image;
 
+    @Column(nullable=false)
+    private String backgroundImage;
+
     @ManyToOne
-    @JoinColumn(name = "genre_id")
+    @JoinColumn(name = "genre_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
     private Genre genre;
 
@@ -47,12 +52,12 @@ public class Game implements SluggerInterface,
     private String slug;
 
     @ManyToOne
-    @JoinColumn(name = "publisher_id")
+    @JoinColumn(name = "publisher_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
     private Publisher publisher;
 
     @ManyToOne
-    @JoinColumn(name = "business_Model_id")
+    @JoinColumn(name = "business_Model_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
     private BusinessModel businessModel;
 

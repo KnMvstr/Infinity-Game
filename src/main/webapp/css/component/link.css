@@ -1,4 +1,43 @@
 
+.navbar {
+    height: 5em;
+    background-color: rgba(29,29,29,.40);
+   backdrop-filter: opacity(20%);
+}
+
+.menu-link {
+    color: white;
+    font-variant-caps: all-petite-caps;
+    font-weight: normal;
+}
+
+
+.logged-user {
+    color: #ff4020;
+    font-size: 1.1em;
+}
+
+.security-icon {
+    color: #ff4020;
+    padding-right: 1em;
+}
+
+.welcome_message {
+    border-radius: 50em;
+    padding: 0.2em 1em 0.2em 1.5em;
+    margin-right: 1em;
+    color: #ff4020;
+}
+
+.welcome_message > form {
+    margin-top: 0.8em;
+}
+
+.subspan {
+    font-style: italic;
+    text-decoration-style: solid;
+}
+
 .btn-link,
 .link-if {
     text-decoration: none;
@@ -10,4 +49,9 @@
 .link-if:hover {
     color: var(--bs-primary);
 }
+
+.admin_access{
+    color: #21FFA1;
+}
+
 

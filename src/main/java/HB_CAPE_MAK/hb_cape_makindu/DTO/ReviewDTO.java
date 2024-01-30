@@ -1,6 +1,7 @@
 package HB_CAPE_MAK.hb_cape_makindu.DTO;
 
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
+import HB_CAPE_MAK.hb_cape_makindu.entity.Gamer;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -14,19 +15,22 @@ import org.hibernate.validator.constraints.Range;
 @Getter
 @Setter
 public class ReviewDTO {
+
     @NotBlank
     private String description;
+
     @NotBlank
     @Range(min=0, max=5)
     private float note;
+
     @NotBlank
     private String image;
+
     @NotBlank
-    private User user;
+    private Gamer gamer;
+
     @NotBlank
     private Game game;
-    @NotBlank
-    private User moderator;
 
     @NotBlank
     @Range(min = 0, max = 5)

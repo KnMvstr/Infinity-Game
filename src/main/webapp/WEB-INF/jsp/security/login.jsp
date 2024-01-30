@@ -2,15 +2,12 @@
 <%@ include file="../tag.jsp" %>
 <jsp:include flush="true" page="../base.jsp"/>
 
-<header class="form-signin-heading container py-5">
-    <h1>Se connecter</h1>
-</header>
-
 <div class="container col-4 justify-content-around py-3">
 
     <%--Input connection--%>
     <form method="POST" action="${UrlRoute.URL_LOGIN}" class="form-signin">
         <div class="form-group ${error != null ? 'has-error' : ''} d-flex flex-column gap-4">
+            <h1 class="d-flex justify-content-center">Connexion</h1>
             <span>${message}</span>
             <input name="username" type="text" class="form-control" placeholder="Pseudo"/>
             <input name="password" type="password" class="form-control" placeholder="Mot de passe"/>

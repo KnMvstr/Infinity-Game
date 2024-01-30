@@ -4,11 +4,13 @@
     --bs-body-color: #000000;
     --bs-secondary: #323232;
     --bs-primary: #ff5400;
+    scroll-behavior: smooth;
 }
+
 
 .btn-primary {
     --bs-btn-color: #fff;
-    --bs-btn-bg: #fca311;
+    --bs-btn-bg: #ff5400;
     --bs-btn-border-color: var(--bs-primary);
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: #ff8000;
@@ -22,7 +24,7 @@
     --bs-btn-disabled-bg: #a03c00;
     --bs-btn-disabled-border-color: #a03c00;
 }
-h1,h2,h3,h4,h5,h6,label,.btn {
+h1,h2,h3,h4,h5,h6,label,.btn, span {
     font-family: Monospaced, monospace  ;
 }
 label {
@@ -32,17 +34,13 @@ label {
 }
 
 
-
-h2 {
-    font-size: 1.2em;
-}
-h1{
+h1, h2, h3{
     color: #f0edee;
 }
 p{
     color: #f0edee;
 }
-a {
+a,span {
     text-decoration: none;
     color: #f0edee;
 }
@@ -53,3 +51,12 @@ a:hover{
 .invalid-feedback {
     display: block;
 }
+
+/*MISE EN FORME DU FOOTER*/
+footer{
+    margin-top: 5em;
+}
+
+
+
+

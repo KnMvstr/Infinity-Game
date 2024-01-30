@@ -72,25 +72,27 @@ public class InitDataLoaderConfig implements CommandLineRunner {
         Faker faker = new Faker(Locale.of("fr"));
         List<String> names = new ArrayList<>();
         for (long i = 1L; i <= 200; i++) {
-            User user;
-            if (i <= 5) {
-                user = new Moderator();
-                ((Moderator) user).setPhoneNumber(faker.phoneNumber().cellPhone());
-            } else {
-                user = new Gamer();
-                LocalDate localDate = new java.sql.Date(faker.date().birthday(12, 60).getTime()).toLocalDate();
-                ((Gamer) user).setBirthAt(localDate);
+            if (userRepository.findById(i).isEmpty()) {
+                User user;
+                if (i <= 5) {
+                    user = new Moderator();
+                    ((Moderator) user).setPhoneNumber(faker.phoneNumber().cellPhone());
+                } else {
+                    user = new Gamer();
+                    LocalDate localDate = new java.sql.Date(faker.date().birthday(12, 60).getTime()).toLocalDate();
+                    ((Gamer) user).setBirthAt(localDate);
+                }
+                user.setId(i);
+                String name;
+                do {
+                    name = slugger.slugify(faker.funnyName().name().replace(" ", ""));
+                } while (names.contains(name));
+                names.add(name);
+                user.setPseudo(name);
+                user.setEmail(faker.internet().safeEmailAddress());
+                user.setPwd(passwordEncoder.encode("12345"));
+                userRepository.save(user);
             }
-            user.setId(i);
-            String name;
-            do {
-                name = slugger.slugify(faker.funnyName().name().replace(" ", ""));
-            } while (names.contains(name));
-            names.add(name);
-            user.setPseudo(name);
-            user.setEmail(faker.internet().safeEmailAddress());
-            user.setPwd(passwordEncoder.encode("12345"));
-            userRepository.save(user);
         }
     }
 
@@ -120,20 +122,22 @@ public class InitDataLoaderConfig implements CommandLineRunner {
 
     private void createGames() {
         Faker faker = new Faker(Locale.of("fr"));
-        List<String> games = List.of("World of Warcraft", "Overwatch", "Diablo IV", "StarCraft II", "Warcraft III : reforged", "DotA 2", "Counter Strike 2", "Portal 2", "La League des Légendes", "Valorant", "Minecraft", "GTA V", "The witcher III", "Cyberpunk 2077", "Battlefield V", "Anno 1800", "Elden Ring", "Pokémon : Violet", "Pokémon : Ecarlate", "Zelda : Tears of the Kingdom", "Monster Hunter : World");
+        List<String> games = List.of("World of Warcraft", "Overwatch", "Diablo IV", "StarCraft II", "Warcraft III : Reforged", "DotA 2", "Counter Strike 2", "Portal 2", "La League des Légendes", "Valorant", "Minecraft", "GTA V", "The Witcher III", "Cyberpunk 2077", "Battlefield V", "Anno 1800", "Elden Ring", "Pokémon : Violet", "Pokémon : Ecarlate", "Zelda : Tears of the Kingdom", "Monster Hunter : World");
         List<Long> businessModels = List.of(2L, 2L, 2L, 2L, 2L, 1L, 2L, 2L, 3L, 1L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L);
         List<Long> publishers = List.of(1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L, 4L, 5L, 6L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L);
         List<Long> genres = List.of(16L, 1L, 7L, 15L, 15L, 2L, 1L, 6L, 2L, 1L, 14L, 14L, 4L, 6L, 1L, 15L, 4L, 4L, 4L, 4L, 10L);
         List<Long> platforms = List.of(2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 2L);
         List<String> images = List.of("https://cdn.thegamesdb.net/images/thumb/boxart/front/149-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/32185-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/115193-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/151-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/803-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/2474-1.png", "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/CS2_Cover_Art.jpg/220px-CS2_Cover_Art.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/914-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/928-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/72904-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/50424-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/20952-1.jpg", "https://calimacil.com/cdn/shop/files/Geralt-calimacil-larp-replica-banner-mobile.jpg?v=1695734545&width=1500", "https://cdn.thegamesdb.net/images/thumb/boxart/front/14517-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/55756-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/64422-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/65101-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/104566-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/104565-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/104362-1.jpg", "https://cdn.thegamesdb.net/images/thumb/boxart/front/60572-1.jpg");
+        List<String> backgroundImage = List.of( "https://wallpapers.com/images/hd/wow-classic-digital-illustration-3yo671y8rip9p4lc.jpg", "https://www.wallpaperflare.com/static/414/186/412/d-va-overwatch-overwatch-d-va-wallpaper.jpg", "https://oyster.ignimgs.com/mediawiki/apis.ign.com/diablo-4/e/e0/D4_CLasses.png","https://i.pinimg.com/originals/d5/13/19/d51319be2e6d301ae006b37087c0a65d.jpg","https://c4.wallpaperflare.com/wallpaper/246/163/668/warcraft-iii-reforged-blizzard-entertainment-warcraft-hd-wallpaper-preview.jpg","https://png.pngtree.com/background/20230613/original/pngtree-dota-2-wallpapers-best-of-dota-2-wallpapers-picture-image_3386446.jpg", "https://i.pinimg.com/originals/c5/52/99/c55299b8012d9033d3d5b059b3869cc1.jpg","https://w.wallha.com/ws/10/dwtgCk8N.jpg","https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltc99fef72e5811743/6525b28a6b6b83589976bfca/Street-Demons-Briar_HPO3_WEB.jpg","https://tasbihdigital.com/wp-content/uploads/2022/10/Valorant-Wallpaper-HD.jpg","https://storage.needpix.com/rsynced_images/minecraft-2053886_1280.png", "https://www.impdb.org/images/4/47/GTA_V_Dodo.jpg", "https://virtualbackgrounds.site/wp-content/uploads/2020/11/the-witcher-3-wild-hunt-kaer-morhen.jpg","https://assetsio.reedpopcdn.com/cyberpunk_wallpaper_1.jpg?width=1920&height=1920&fit=bounds&quality=80&format=jpg&auto=webp","https://www.playscope.com/wp-content/uploads/2019/01/battlefieldv_coupsdefoudreimages_0005.jpg","https://cdn.neowin.com/news/images/uploaded/2022/10/1666373154_diesel_product_oregano_home_anno1800_gamescom2018_screenshot_south_america_island_1440x2560-2560x1440-7bd2e0fca19053df695c54781c23b9bd935cf442.jpg","https://www.warlegend.net/wp-content/uploads/Elden-Ring-19.jpg","https://www.nintendo-difference.com/wp-content/uploads/2022/11/Scarlet_Violet_Nov_8_Screenshot_15.jpg","https://tcg.pokemon.com/assets/img/home/wallpapers/wallpaper-69.jpg", "https://www.gematsu.com/wp-content/uploads/2021/12/Game-Page-Featured_The-Legend-of-Zelda-Tears-of-the-Kingdom-Inits.jpg", "https://static1.millenium.org/articles/9/34/39/89/@/1135092-zone-secrete-article_image_d-1.jpg");
         for (int i = 0; i < games.size(); i++) {
             Long id = (long) (i + 1);
             if (gameRepository.findById(id).isEmpty()) {
                 Game game = new Game();
                 game.setId(id);
                 game.setName(games.get(i));
-                game.setDescription("<h2>" + faker.yoda().quote() + "</h2></br>" + faker.lorem().paragraph(8));
+                game.setDescription("<h5>" + faker.yoda().quote() + "</h5></br>" + faker.lorem().paragraph(8));
                 game.setImage(images.get(i));
+                game.setBackgroundImage(backgroundImage.get(i));
                 LocalDate localDate = new java.sql.Date(faker.date().birthday(2, 25).getTime()).toLocalDate();
                 game.setReleaseDate(localDate);
                 Random rand = new Random();

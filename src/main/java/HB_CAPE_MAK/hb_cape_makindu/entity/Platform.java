@@ -30,13 +30,7 @@ public class Platform implements
 
     private String slug;
 
-    @ManyToMany
-    @JoinTable(
-            name = "platform_game", // nom de la table
-            joinColumns = @JoinColumn(name = "platform_id"), // renomme la colonne de l'objet courant dans la table relationnelle
-            inverseJoinColumns = @JoinColumn(name = "game_id") // renomme la colonne de l'objet en relation dans la table relationnelle
-    )
-    @JsonView(JsonViews.PlatformFullView.class)
+    @ManyToMany(mappedBy = "platforms")
     private List<Game> games = new ArrayList<>();
 
     @Override

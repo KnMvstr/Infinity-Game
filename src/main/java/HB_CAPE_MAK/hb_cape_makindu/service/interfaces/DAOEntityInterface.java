@@ -8,4 +8,5 @@ public interface DAOEntityInterface<T> extends
 
     List<T> findAll();
 
+
 }

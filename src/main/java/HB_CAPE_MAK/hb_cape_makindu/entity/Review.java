@@ -3,9 +3,9 @@ package HB_CAPE_MAK.hb_cape_makindu.entity;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jdk.jfr.Timestamp;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -28,7 +28,7 @@ public class Review {
     private Long id;
 
     @NotNull
-    @Column(length = 255, nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     @JsonView(JsonViews.ReviewPublicView.class)
     private String description;
 
@@ -52,12 +52,6 @@ public class Review {
     private LocalDateTime moderatedAt;
 
     @ManyToOne
-    @CreatedBy
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
-    @JsonView(JsonViews.ReviewPublicView.class)
-    private User user;
-
-    @ManyToOne
     @JoinColumn(nullable = false)
     private Gamer gamer;
 
@@ -68,13 +62,12 @@ public class Review {
 
     @ManyToOne
     @LastModifiedBy
-    @JoinColumn(name = "user_id",insertable=false, updatable=false )
     @JsonView(JsonViews.ReviewFullView.class)
-    private User moderator;
+    private Moderator moderator;
 
-    public Date getCreatedAt() {
-        return Date.from(createdAt.atZone(ZoneId.systemDefault()).toInstant());
-    }
+//    public Date getCreatedAt() {
+//        return Date.from(createdAt.atZone(ZoneId.systemDefault()).toInstant());
+//    }
 
 }
 

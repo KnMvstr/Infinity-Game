@@ -49,6 +49,4 @@ public class SecurityController {
         mav.setViewName("security/login");
         return mav;
     }
-
-
 }

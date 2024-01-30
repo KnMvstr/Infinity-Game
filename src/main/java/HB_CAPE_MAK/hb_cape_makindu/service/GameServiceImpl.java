@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -21,6 +20,13 @@ public class GameServiceImpl implements DAOFindByIdInterface<Game> {
     public Game findById(Long id) {
         return gameRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
+    }
+    public Game findBySlug(String slug) {
+        return gameRepository.findBySlug(slug)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+    public List<Game> findTop4ByOrderByCountReview() {
+        return gameRepository.findTop4ByOrderByCountReview();
     }
 
     public Game persist(GameDTO gameDTO, Long id) {

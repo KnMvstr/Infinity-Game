@@ -36,10 +36,6 @@ public abstract class User  implements UserDetails {
     @JsonView(JsonViews.UserPublicView.class)
     protected String pwd;
 
-    @OneToMany(mappedBy = "user")
-    @JsonView(JsonViews.UserFullView.class)
-    private List<Review> reviews = new ArrayList<>();
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -75,6 +71,9 @@ public abstract class User  implements UserDetails {
         return true;
     }
 
+    public boolean isModerator() {
+        return this instanceof Moderator;
+    }
 
 }
 

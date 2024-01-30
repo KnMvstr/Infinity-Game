@@ -5,6 +5,7 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.Gamer;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Moderator;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.repository.UserRepository;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOFindByEmailInterface;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOFindByIdInterface;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -18,11 +19,12 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements DAOFindByIdInterface<User>, UserDetailsService {
+public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEmailInterface, UserDetailsService {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
@@ -33,6 +35,15 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, UserDetailsS
                 .orElseThrow(EntityNotFoundException::new);
     }
 
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public User findByPseudo(String pseudo) {
+        return userRepository.findByPseudo(pseudo)
+                .orElseThrow(EntityNotFoundException::new);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -49,9 +60,9 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, UserDetailsS
 
     private List<GrantedAuthority> userGrantedAuthority(User user) {
         if (user instanceof Moderator) {
-            return List.of(new SimpleGrantedAuthority("MODERATOR"));
+            return List.of(new SimpleGrantedAuthority("ROLE_MODERATOR"));
         }
-        return List.of(new SimpleGrantedAuthority("GAMER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_GAMER"));
     }
 
 
@@ -63,8 +74,6 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, UserDetailsS
 
         return userRepository.saveAndFlush(user);
     }
-
-
 }
 
 //    public User edit(Long id, UserPutDTO userPutDTO) {
