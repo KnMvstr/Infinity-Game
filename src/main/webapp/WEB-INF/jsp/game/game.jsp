@@ -2,6 +2,7 @@
 <%@ include file="../tag.jsp" %>
 <c:set var="title" scope="request" value="CapEntre"/>
 <jsp:include flush="true" page="${contextPath}/WEB-INF/jsp/base.jsp"/>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <header class="top_wallpaper" style="background-image:url(${game.backgroundImage})">
@@ -26,10 +27,10 @@
                             </a>
                         </li>
                     </c:forEach>
+
                 </c:if>
             </ul>
         </div>
-
 
         <div class="container mt-5 py-5 text-white">
             <c:out value="${game.description}" escapeXml="false"/>
@@ -92,6 +93,9 @@
 
             </div>
         </c:forEach>
+        <core:set var="page" value="${pageReviews}"/>
+        <%@ include file="../component/pagination.jsp" %>
+<%--        <jsp:include flush="true" page="${contextPath}/WEB-INF/jsp/component/pagination.jsp"/>--%>
     </section>
 </section>
 

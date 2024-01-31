@@ -38,7 +38,7 @@
             </a>
         </security:authorize>
 
-
+        <%-- MODERATED FILTER --%>
         <security:authorize access="hasRole('MODERATOR')">
             <div class="sort-filter mt-4 me-3">
                 <select class="form-select sortable-select">
@@ -58,11 +58,6 @@
                 </select>
             </div>
         </security:authorize>
-
-
-
-
-
 
 
         <c:set var="page" scope="request" value="${pageReviews}"/>
@@ -86,6 +81,7 @@
     </c:forEach>
 
     <%@ include file="component/pagination.jsp" %>
+<%--    <jsp:include flush="true" page="${contextPath}/WEB-INF/jsp/component/pagination.jsp"/>--%>
 </section>
 
 <hr>

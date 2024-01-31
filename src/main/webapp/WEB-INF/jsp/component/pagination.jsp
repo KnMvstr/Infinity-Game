@@ -1,4 +1,5 @@
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+<%--<%@ include file="../tag.jsp" %>--%>
 
 <core:set var="currentPage" value="${page.number + 1}"/>
 <div class="navigation d-flex justify-content-center my-4 me-5">

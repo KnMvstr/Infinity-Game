@@ -40,6 +40,7 @@ public class JspUtils {
             String currentUrl,
             String... addQueryParams
     ) {
+        System.out.println("JspUtils.generateUrlFrom");
         // String... :  la méthode prend autant de paramètres de type String que voulu
         // Et les ajoute automatiquement dans une Liste
         UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl(currentUrl);
