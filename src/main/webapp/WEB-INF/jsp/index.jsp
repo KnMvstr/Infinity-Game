@@ -7,8 +7,7 @@
 <section class="top_wallpaper">
 </section>
 
-
-<section class="container d-flex justify-content-evenly col-md-12 gap-5 flex-wrap sibling-fade">
+<section class="container d-flex justify-content-evenly col-md-12 gap-4 flex-wrap sibling-fade">
 
     <h2 id="all_comment">Tous les commentaires</h2>
     <%--  FILTRES & DOWNLOAD --%>
@@ -58,31 +57,47 @@
                 </select>
             </div>
         </security:authorize>
-
-
-        <c:set var="page" scope="request" value="${pageReviews}"/>
     </div>
-
-    <%--REVIEW CARDS--%>
-    <c:forEach items="${pageReviews.content}" var="review">
-        <a href="${UrlRoute.URL_REVIEW}/${review.id}">
-            <div class="card my-2 text-center slide_diagonal" title="${review.game.name}">
-                <div class="card-header">${jspUtils.excerpt(review.game.name, 16)}</div>
-                <div class="card-body">
-                    <blockquote class="blockquote d-column-flex align-items-center justify-content-center">
-                        <p>${jspUtils.excerpt(review.description, 55)}</p>
-                        <footer class="blockquote-footer text-muted">${review.gamer.pseudo}</footer>
-                    </blockquote>
-                </div>
-                <div class="card-footer"><p>Le ${dateUtils.getDateFormat(review.createdAt, "dd/MM/yyyy")}</p></div>
-                    <%--            ${dateUtils.getDateFormat(review.createdAt, "dd/MM/yyyy")}--%>
-            </div>
-        </a>
-    </c:forEach>
-
-    <%@ include file="component/pagination.jsp" %>
-<%--    <jsp:include flush="true" page="${contextPath}/WEB-INF/jsp/component/pagination.jsp"/>--%>
 </section>
+
+<section class="container d-flex align-content-around flex-wrap justify-content-around gap-5 card-section">
+    <c:forEach items="${pageReviews.content}" var="review">
+        <div class="container card text-center slide_diagonal" title="${review.game.name}">
+            <a href="${UrlRoute.URL_REVIEW}/${review.id}">
+                <div class="card-body">
+                    <h5 class="card-title">${jspUtils.excerpt(review.game.name, 16)}</h5>
+                    <c:if test="${not empty review.moderator}">
+                        <cite title="A modérer" class="modstatus">Modéré par ${review.moderator.pseudo}
+                            le ${dateUtils.getDateFormat(review.moderatedAt, "dd/MM/yyyy")}</cite>
+                    </c:if>
+
+                    <c:if test="${empty review.moderator}">
+                        <cite title="A modérer" class="modstatus">En attente de moderation</cite>⌛
+                    </c:if>
+                </div>
+                <blockquote class="blockquote d-column-flex align-items-center justify-content-center">
+                    <p>${jspUtils.excerpt(review.description, 55)}</p>
+                </blockquote>
+            </a>
+            <p class="text-muted">Par ${review.gamer.pseudo}
+                le ${dateUtils.getDateFormat(review.createdAt, "dd/MM/yyyy")}</p>
+            <div class="container d-inline">
+                <c:if test="${empty review.moderator}">
+                    <c:if test="${userLogged.moderator}">
+                        <a class="btn btn-link fa fa-check " href="${UrlRoute.URL_REVIEW_MODERATE}/${review.id}/1"
+                           title="Accepter">
+                        </a>
+                        /
+                        <a class="btn btn-link fa fa-xmark " href="${UrlRoute.URL_REVIEW_MODERATE}/${review.id}/0"
+                           title="Refuser">
+                        </a>
+                    </c:if>
+                </c:if>
+            </div>
+        </div>
+    </c:forEach>
+</section>
+
 
 <hr>
 

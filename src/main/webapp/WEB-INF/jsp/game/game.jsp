@@ -43,9 +43,6 @@
 
 <section class="container">
     <h2> Ils ont donné leur avis
-        <a href="#" title="Voir tous les commentaires">
-            <i class="fa fa-eye"></i>
-        </a>
         <button class="ms-2 btn btn-link"
                 title="Ajouter un commentaire"
                 data-hide-show-button="formReview">

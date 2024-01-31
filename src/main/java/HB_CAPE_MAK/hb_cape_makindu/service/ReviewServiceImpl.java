@@ -1,10 +1,7 @@
 package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.ReviewDTO;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Gamer;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Review;
-import HB_CAPE_MAK.hb_cape_makindu.entity.User;
+import HB_CAPE_MAK.hb_cape_makindu.entity.*;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.ReviewRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOEntityInterface;
@@ -53,6 +50,20 @@ public class ReviewServiceImpl {
 
     public Page<Review> findAllByGame(Game game, Pageable pageable) {
         return reviewRepository.findAllByGame(game, pageable);
+    }
+
+    public boolean moderateReview(String pseudo, Long id, Long moderate) {
+        Review review = findById(id);
+        boolean isModerate = true;
+        if (moderate == 1L) {
+            review.setModerator((Moderator) userService.findByPseudo(pseudo));
+            review.setModeratedAt(LocalDateTime.now());
+        } else {
+            reviewRepository.delete(review);
+            isModerate = false;
+        }
+        reviewRepository.flush();
+        return isModerate;
     }
 
 

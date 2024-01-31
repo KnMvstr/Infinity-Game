@@ -20,15 +20,21 @@
 }
 
 /* CSS GAMELIST*/
+.card-section{
+    margin-top: 3vh;
+}
 .card{
     width: 20vw;
-    height:43vh;
+    height:31vh;
     box-shadow: 6px 2px 50px 4px rgba(0, 0, 0, 0.68);
     background:#3E3E3b;
     border:none;
     color: #f0edee;
     cursor: hand;
     border-radius: 0.5em;
+}
+.modstatus{
+    font-size: 0.816em;
 }
 
 .card-header{
@@ -57,8 +63,8 @@
 }
 /*HOVER GENERAL INTERACTION*/
 .sibling-fade {
-    margin-top: 35vh;
-    visibility: hidden; padding-top:45vh;}
+    margin-top: 67vh;
+    visibility: hidden;}
 /* Prevents :hover from triggering in the gaps between items also used to increase the margin to fit with the banner */
 .sibling-fade > * { visibility: visible; }
 /* Brings the child items back in, even though the parent is `hidden` */

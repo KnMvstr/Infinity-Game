@@ -5,6 +5,7 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.ReviewDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
 import HB_CAPE_MAK.hb_cape_makindu.mapping.UrlRoute;
 import HB_CAPE_MAK.hb_cape_makindu.service.*;
+import HB_CAPE_MAK.hb_cape_makindu.utils.FlashMessage;
 import HB_CAPE_MAK.hb_cape_makindu.utils.FlashMessageBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -65,6 +66,8 @@ public class GameController {
             return mav;
         }
     }
+
+
 
     @PostMapping(UrlRoute.URL_GAME + "/{slug}")
     public ModelAndView show(
