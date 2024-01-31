@@ -4,11 +4,12 @@
     ${label}
     <div class="ms-1 me-2 row">
         <c:set var="sortAsc" scope="request" value="sort=${sortable},asc"/>
-        <a href="${jspUtils.generateUrlFrom(currentUrl, currentQuery, sortAsc)}" data-my-sortable="${sortAsc}">
+        <a href="${jspUtils.generateUrlFrom(currentUrl, currentQuery, sortAsc)}" data-my-sortable="${sortAsc}" title="ascendant">
             <i class="fa-solid fa-sort-up"></i>
         </a>
+
         <c:set var="sortDesc" scope="request" value="sort=${sortable},desc"/>
-        <a href="${jspUtils.generateUrlFrom(currentUrl, currentQuery, sortDesc)}" data-my-sortable="${sortDesc}">
+        <a href="${jspUtils.generateUrlFrom(currentUrl, currentQuery, sortDesc)}" data-my-sortable="${sortDesc}" title="descendant">
             <i class="fa-solid fa-sort-down"></i>
         </a>
     </div>

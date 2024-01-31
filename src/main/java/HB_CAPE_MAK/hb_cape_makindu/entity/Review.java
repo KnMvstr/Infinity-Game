@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jdk.jfr.Timestamp;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -33,7 +34,7 @@ public class Review {
     private String description;
 
     @CreatedDate
-    @Timestamp
+    @CreationTimestamp
     @Column
     @JsonView(JsonViews.ReviewPrivateView.class)
     private LocalDateTime createdAt;
@@ -42,7 +43,7 @@ public class Review {
     @JsonView(JsonViews.ReviewPublicView.class)
     private float rating;
 
-    @Column (nullable = true)
+    @Column(nullable = true)
     @JsonView(JsonViews.ReviewPublicView.class)
     private String image;
 

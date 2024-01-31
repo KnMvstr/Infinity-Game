@@ -2,10 +2,10 @@
 <%@ include file="../tag.jsp" %>
 <jsp:include flush="true" page="../base.jsp"/>
 
-<div class="container col-4 justify-content-around py-3">
+<div class="container col-4 justify-content-around">
 
     <%--Input connection--%>
-    <form method="POST" action="${UrlRoute.URL_LOGIN}" class="form-signin">
+    <form method="POST" action="${UrlRoute.URL_LOGIN}" class="form-signin ">
         <div class="form-group ${error != null ? 'has-error' : ''} d-flex flex-column gap-4">
             <h1 class="d-flex justify-content-center">Connexion</h1>
             <span>${message}</span>

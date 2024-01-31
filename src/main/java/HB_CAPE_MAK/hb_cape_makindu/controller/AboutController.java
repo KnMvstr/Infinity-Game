@@ -1,7 +1,7 @@
 package HB_CAPE_MAK.hb_cape_makindu.controller;
 
+import HB_CAPE_MAK.hb_cape_makindu.DTO.ReviewDTO;
 import HB_CAPE_MAK.hb_cape_makindu.mapping.UrlRoute;
-import HB_CAPE_MAK.hb_cape_makindu.service.ReviewServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 
 @Controller
-@RequestMapping(name = "AppReview")
+@RequestMapping(name = "AppAbout")
 @AllArgsConstructor
-public class ReviewController {
-    ReviewServiceImpl reviewService;
-    @GetMapping(path = UrlRoute.URL_REVIEW + "/{id}", name = "show")
-    public ModelAndView review(
-            @PathVariable Long id,
+public class AboutController {
+    @GetMapping(path = UrlRoute.URL_ABOUT)
+    public ModelAndView about(
+
             ModelAndView mav,
             Principal principal
     ) {
@@ -27,10 +26,9 @@ public class ReviewController {
             return mav;
         }
         {
-            mav.setViewName("review/review");
-            mav.addObject("review", reviewService.findById(id));
-
+            mav.setViewName("about");
             return mav;
         }
-    }
+
+}
 }

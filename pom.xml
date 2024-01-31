@@ -153,6 +153,19 @@
             <version>24.1.0</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- Dépendance pour les Excel -->
+        <dependency>
+            <groupId>org.dhatim</groupId>
+            <artifactId>fastexcel</artifactId>
+            <version>0.15.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dhatim</groupId>
+            <artifactId>fastexcel-reader</artifactId>
+            <version>0.15.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>

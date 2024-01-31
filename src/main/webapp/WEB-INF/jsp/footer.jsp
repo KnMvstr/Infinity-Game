@@ -51,16 +51,13 @@
                         Useful links
                     </h6>
                     <p>
-                        <a href="#!" class="text-reset">Les jeux</a>
+                        <a href="/#all_comment" class="text-reset">Les avis</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Les avis</a>
+                        <a href="#/" class="text-reset">Votre compte</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Votre compte</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Help</a>
+                        <a href="${UrlRoute.URL_ABOUT}" class="text-reset">À propos</a>
                     </p>
                 </div>
                 <!-- Grid column -->

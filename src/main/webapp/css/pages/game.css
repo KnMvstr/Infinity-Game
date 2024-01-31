@@ -1,5 +1,5 @@
 .game_spec {
-    margin-top: 10vh;
+    margin-top: 20vh;
 }
 
 .game_spec > card {
@@ -65,7 +65,7 @@ ul:before {
 }
 
 a:hover {
-    opacity: 30%;
+    opacity: 90%;
 }
 
 

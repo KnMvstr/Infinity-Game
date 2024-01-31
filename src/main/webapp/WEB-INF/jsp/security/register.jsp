@@ -2,7 +2,7 @@
 <%@ include file="../tag.jsp" %>
 <jsp:include flush="true" page="../base.jsp"/>
 
-<div class="col-md-12 d-inline-flex justify-content-evenly align-items-end mt-5 flex-md-wrap">
+<div class="col-md-12 d-inline-flex justify-content-evenly align-items-end flex-md-wrap form-signout">
 
     <section class="form-group ${status.error ? 'has-error' : ''}">
         <f:form method="POST" modelAttribute="userForm" class="form-signin">

@@ -22,6 +22,11 @@ public class GenreServiceImpl implements DAOEntityInterface {
         return genreRepository.findAll();
     }
 
+
+    public List<Genre> findAllByNameOrderByName(String name) {
+        return genreRepository.findAllByNameOrderByName(name);
+    }
+
     @Override
     public Genre findById(Long id) {
         return genreRepository.findById(id)
@@ -43,5 +48,10 @@ public class GenreServiceImpl implements DAOEntityInterface {
 
         // Si id = null, le save fera un insert, sinon un update
         return genreRepository.saveAndFlush(g);
+    }
+
+    public Object findByName(String name) throws Throwable {
+        return genreRepository.findByName( name)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }

@@ -1,5 +1,6 @@
 package HB_CAPE_MAK.hb_cape_makindu.configuration;
 
+import HB_CAPE_MAK.hb_cape_makindu.mapping.UrlRoute;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +16,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth ->
                         auth
+                                .requestMatchers(UrlRoute.URL_REVIEW + "/**").hasRole("MODERATOR")
                                 .requestMatchers("/**").permitAll()
                 )
                 .formLogin(formLogin ->

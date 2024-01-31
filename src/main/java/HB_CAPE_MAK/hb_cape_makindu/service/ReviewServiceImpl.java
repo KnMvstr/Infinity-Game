@@ -2,6 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.ReviewDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
+import HB_CAPE_MAK.hb_cape_makindu.entity.Gamer;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Review;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.ReviewRepository;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class ReviewServiceImpl implements DAOEntityInterface<Review> {
 
     private final ReviewRepository reviewRepository;
+    private UserServiceImpl userService;
 
 
 
@@ -59,5 +61,14 @@ public class ReviewServiceImpl implements DAOEntityInterface<Review> {
     public Review findById(Long id) {
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new NotFoundCapEntException("Review", "id", id));
+    }
+
+    public Review createReview(ReviewDTO reviewDTO, Game game, String name) {
+        Review review = new Review();
+        review.setGame(game);
+        review.setGamer((Gamer) userService.findByPseudo(name));
+        review.setDescription(reviewDTO.getDescription());
+        review.setRating(reviewDTO.getRating());
+        return reviewRepository.saveAndFlush(review);
     }
 }

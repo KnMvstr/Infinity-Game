@@ -1,10 +1,12 @@
 
+html{
+    scroll-behavior: smooth;
+}
 * {
     --bs-body-bg: #323232;
     --bs-body-color: #000000;
     --bs-secondary: #323232;
     --bs-primary: #ff5400;
-    scroll-behavior: smooth;
 }
 
 
@@ -25,7 +27,8 @@
     --bs-btn-disabled-border-color: #a03c00;
 }
 h1,h2,h3,h4,h5,h6,label,.btn, span {
-    font-family: Monospaced, monospace  ;
+    font-family: Monospaced, monospace;
+    color: #f0edee;;
 }
 label {
     font-family: Helvetica Neue, sans-serif;
