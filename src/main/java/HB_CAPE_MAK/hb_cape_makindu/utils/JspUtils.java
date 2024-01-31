@@ -64,14 +64,27 @@ public class JspUtils {
         System.out.println("- URL en sortie : " + urlOut);
         return urlOut;
     }
-
     private UriComponentsBuilder addQueryParam(UriComponentsBuilder uri, String queryParamName, String queryParamValue) {
-        if (queryParamName.equals("sort") &&
-                !uri.toUriString().contains("sort=" + queryParamValue.split(",")[0] + ",")
-        ) {
+        if (queryParamName.equals("sort")) {
+            String queryAttribute = queryParamValue.split(",")[0];
+            if (uri.toUriString().contains(queryParamName + "=" + queryAttribute + ",")) {
+                String replacement = "";
+                if (!uri.toUriString().contains(queryParamName + "=" + queryParamValue)) {
+                    replacement = "sort=" + queryAttribute + ",desc";
+                    if (queryParamValue.contains("asc")) {
+                        replacement = "sort=" + queryAttribute + ",asc";
+                    }
+                }
+                uri = UriComponentsBuilder.fromHttpUrl(
+                        uri.toUriString()
+                                .replaceAll("sort=" + queryAttribute + ",(asc|desc)", replacement));
+                return uri;
+            }
             return uri.queryParam(queryParamName, queryParamValue);
         }
         return uri.replaceQueryParam(queryParamName, queryParamValue);
     }
+
+
 
 }

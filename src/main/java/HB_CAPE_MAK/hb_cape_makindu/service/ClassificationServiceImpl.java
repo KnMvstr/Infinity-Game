@@ -23,6 +23,12 @@ public class ClassificationServiceImpl implements DAOEntityInterface<Classificat
     }
 
     @Override
+    public List<Classification> findAllSorted() {
+        return classificationRepository.findAllByOrderByNameAsc();
+    }
+
+
+    @Override
     public Classification findById(Long id) {
         return classificationRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);

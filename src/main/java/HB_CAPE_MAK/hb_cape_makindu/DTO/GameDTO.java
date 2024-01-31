@@ -1,9 +1,6 @@
 package HB_CAPE_MAK.hb_cape_makindu.DTO;
 
-import HB_CAPE_MAK.hb_cape_makindu.entity.BusinessModel;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Classification;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Publisher;
+import HB_CAPE_MAK.hb_cape_makindu.entity.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -13,6 +10,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,7 +26,7 @@ public class GameDTO {
     private String image;
     @NotBlank
     @DateTimeFormat
-    private LocalDate releaseDate;
+    private String releaseDate;
     @NotBlank
     private Genre genre;
     @NotBlank
@@ -37,4 +35,6 @@ public class GameDTO {
     private BusinessModel businessModel;
     @NotBlank
     private Classification classification;
+    @NotBlank
+    private List<Platform> platforms;
 }

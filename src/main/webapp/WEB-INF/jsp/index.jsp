@@ -38,6 +38,33 @@
             </a>
         </security:authorize>
 
+
+        <security:authorize access="hasRole('MODERATOR')">
+            <div class="sort-filter mt-4 me-3">
+                <select class="form-select sortable-select">
+                    <option value="all" data-filter-url="${currentUrl}">
+                        Tous les commentaires
+                    </option>
+                    <option value="sort=moderator,desc"
+                            data-filter-url="${jspUtils.generateUrlFrom(currentUrl, currentQuery, "sort=moderator,desc")}"
+                    >
+                        Modérés
+                    </option>
+                    <option value="sort=moderator,asc"
+                            data-filter-url="${jspUtils.generateUrlFrom(currentUrl, currentQuery, "sort=moderator,asc")}"
+                    >
+                        À modérer
+                    </option>
+                </select>
+            </div>
+        </security:authorize>
+
+
+
+
+
+
+
         <c:set var="page" scope="request" value="${pageReviews}"/>
     </div>
 

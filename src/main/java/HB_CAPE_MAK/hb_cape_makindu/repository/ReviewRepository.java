@@ -22,4 +22,10 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT r FROM Review r WHERE r.game = :game")
     Page<Review> findAllByGame(@Param("game") Game game, Pageable pageable);
 
+    Page<Review> findByModeratorIsNotNullOrGamerPseudo(String pseudo, Pageable pageable);
+
+    Page<Review> findByModeratorIsNull(Pageable pageable);
+    Page<Review> findByModeratorIsNotNull(Pageable pageable);
+
+
 }

@@ -2,6 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.GameDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
+import HB_CAPE_MAK.hb_cape_makindu.entity.Moderator;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.GameRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOFindByIdInterface;
@@ -9,12 +10,15 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class GameServiceImpl implements DAOFindByIdInterface<Game> {
     private GameRepository gameRepository;
+    private UserServiceImpl userService;
+
 
     @Override
     public Game findById(Long id) {
@@ -35,10 +39,9 @@ public class GameServiceImpl implements DAOFindByIdInterface<Game> {
                     "Game", "id", id
             );
         }
-
         Game p = new Game();
         p.setId(id);
-        p.setReleaseDate(gameDTO.getReleaseDate());
+        p.setReleaseDate(LocalDate.parse(gameDTO.getReleaseDate()));
         p.setGenre(gameDTO.getGenre());
         p.setPublisher(gameDTO.getPublisher());
         p.setBusinessModel(gameDTO.getBusinessModel());
@@ -47,5 +50,20 @@ public class GameServiceImpl implements DAOFindByIdInterface<Game> {
 
         // Si id = null, le save fera un insert, sinon un update
         return gameRepository.saveAndFlush(p);
+    }
+
+    public Game create(GameDTO gameDTO, String pseudo) {
+        Game game = new Game();
+        game.setName(gameDTO.getName());
+        game.setDescription(gameDTO.getDescription());
+        game.setReleaseDate(LocalDate.parse(gameDTO.getReleaseDate()));
+        game.setGenre(gameDTO.getGenre());
+        game.setBusinessModel(gameDTO.getBusinessModel());
+        game.setPublisher(gameDTO.getPublisher());
+        game.setClassification(gameDTO.getClassification());
+        game.setPlatforms(gameDTO.getPlatforms());
+        game.setModerator((Moderator) userService.findByPseudo(pseudo));
+        game.setImage("https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg");
+        return gameRepository.saveAndFlush(game);
     }
 }

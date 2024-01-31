@@ -11,6 +11,25 @@ function initSortable() {
     }
 }
 
+function initSortableSelect() {
+    const selects = document.querySelectorAll('.sortable-select')
+    selects.forEach((select) => {
+        select.addEventListener('change', () => {
+            const selectedOption = select.querySelector('option:checked');
+            if (selectedOption) {
+                window.location.href = selectedOption.getAttribute('data-filter-url');
+            }
+        });
+        const options = select.querySelectorAll('option');
+        options.forEach((option) => {
+            if (window.location.search.includes(option.value)) {
+                option.setAttribute('selected', 'selected');
+            }
+        });
+    });
+}
+
 window.addEventListener('load', () => {
-   initSortable();
+    initSortable();
+    initSortableSelect();
 });

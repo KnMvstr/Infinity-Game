@@ -22,6 +22,11 @@ public class GenreServiceImpl implements DAOEntityInterface {
         return genreRepository.findAll();
     }
 
+    @Override
+    public List findAllSorted() {
+        return genreRepository.findAllByOrderByNameAsc();
+    }
+
 
     public List<Genre> findAllByNameOrderByName(String name) {
         return genreRepository.findAllByNameOrderByName(name);

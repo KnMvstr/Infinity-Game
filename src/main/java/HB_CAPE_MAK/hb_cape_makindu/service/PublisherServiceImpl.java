@@ -23,6 +23,11 @@ public class PublisherServiceImpl implements DAOEntityInterface<Publisher> {
     }
 
     @Override
+    public List<Publisher> findAllSorted() {
+        return publisherRepository.findAllByOrderByNameAsc();
+    }
+
+    @Override
     public Publisher findById(Long id) {
         return publisherRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);

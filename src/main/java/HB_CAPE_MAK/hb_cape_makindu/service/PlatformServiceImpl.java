@@ -24,6 +24,11 @@ public class PlatformServiceImpl implements DAOEntityInterface<Platform> {
     }
 
     @Override
+    public List<Platform> findAllSorted() {
+        return platformRepository.findAllByOrderByNameAsc();
+    }
+
+    @Override
     public Platform findById(Long id) {
         return platformRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);

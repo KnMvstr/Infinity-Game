@@ -49,9 +49,10 @@ public class HomeController {
             mav.setViewName("redirect:/login");
             return mav;
         }
-        mav.setViewName("index");
+        mav.addObject("pageReviews", reviewService.getPageReviewByPseudo(principal.getName(), pageable));
         mav.addObject("pageReviews", reviewService.findAll(pageable));
         mav.addObject("Top4TrendGames", gameService.findTop4ByOrderByCountReview());
+        mav.setViewName("index");
         return mav;
     }
 

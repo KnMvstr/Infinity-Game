@@ -33,9 +33,7 @@ public class Review {
     @JsonView(JsonViews.ReviewPublicView.class)
     private String description;
 
-    @CreatedDate
-    @CreationTimestamp
-    @Column
+     @Column
     @JsonView(JsonViews.ReviewPrivateView.class)
     private LocalDateTime createdAt;
 
@@ -47,7 +45,6 @@ public class Review {
     @JsonView(JsonViews.ReviewPublicView.class)
     private String image;
 
-    @LastModifiedDate
     @JsonView(JsonViews.ReviewPublicView.class)
     @Column(name = "lastModify")
     private LocalDateTime moderatedAt;
