@@ -9,7 +9,7 @@
 
 <section class="container flex-column">
     <div class="d-flex align-items-center justify-content-around flex-wrap px-5 game_spec">
-        <div class="flex-column">
+        <div class="flex-column bg-black game_spec_gamer rounded-3 p-3">
             <a href="/"><h2>${review.gamer.pseudo}</h2></a>
             <p>${review.rating}</p>
         </div>

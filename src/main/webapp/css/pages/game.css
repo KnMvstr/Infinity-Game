@@ -18,6 +18,10 @@ ul:before {
     margin-bottom: 2.618vh;
 }
 
+.game_spec_gamer {
+    opacity: 90%;
+}
+
 .game_spec_list {
     width: 25vw;
     opacity: 90%;
