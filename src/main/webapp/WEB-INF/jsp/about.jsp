@@ -39,8 +39,6 @@
             rôle crucial dans les décisions d'achat des joueurs du monde entier.</p>
     </div>
 
-    <img src="../media/Group5.png" alt="stats" title="recent_stats" class="py-5">
-
     <div class="container">
         <h4 class="mt-5 mb-3">Impact et Avenir : Redéfinir les Avis dans le Jeu Vidéo</h4>
         <p>Infinity Gaming a non seulement transformé la façon dont les avis sont partagés et perçus dans l'industrie du

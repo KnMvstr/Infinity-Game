@@ -25,11 +25,9 @@ import java.util.List;
 @DiscriminatorValue ("GAMER")
 public class Gamer extends User {
 
-    @JsonView(JsonViews.GamerPublicView.class)
     private LocalDate birthAt;
 
     @OneToMany(mappedBy = "gamer")
-    @JsonView(JsonViews.UserFullView.class)
     private List<Review> reviews = new ArrayList<>();
 
 }

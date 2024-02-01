@@ -56,7 +56,6 @@ public class GameController {
         {
             if (principal != null) {
                 mav.addObject("reviewDto", new ReviewDTO());
-
             }
             mav.setViewName("game/game");
             Game game = gameService.findBySlug(slug);
@@ -67,18 +66,17 @@ public class GameController {
         }
     }
 
-
-
-    @PostMapping(UrlRoute.URL_GAME + "/{slug}")
+    @PostMapping(UrlRoute.URL_GAME_SLUG)
     public ModelAndView show(
             @PathVariable String slug,
             ModelAndView mav,
             Principal principal,
             @ModelAttribute("reviewDto") ReviewDTO reviewDTO,
-            BindingResult result
+            BindingResult result,
+            RedirectAttributes redirectAttributes
     ) {
         if (result.hasErrors()) {
-            mav.setViewName("game/show");
+            mav.setViewName("game/game");
             return mav;
         }
         reviewService.createReview(
@@ -86,9 +84,34 @@ public class GameController {
                 gameService.findBySlug(slug),
                 principal.getName()
         );
+        redirectAttributes.addFlashAttribute(
+                "flashMessage",
+                flashMessageBuilder.createSuccessFlashMessage("Votre commentaire a bien été enregistré, il est actuellement en attente de modération !")
+        );
         mav.setViewName("redirect:" + UrlRoute.URL_GAME + "/" + slug);
         return mav;
     }
+//    @PostMapping(UrlRoute.URL_GAME + "/{slug}")
+//    public ModelAndView show(
+//            @PathVariable String slug,
+//            ModelAndView mav,
+//            Principal principal,
+//            @ModelAttribute("reviewDto") ReviewDTO reviewDTO,
+//            BindingResult result
+//    ) {
+//        if (result.hasErrors()) {
+//            mav.setViewName("game");
+//            return mav;
+//        }
+//        reviewService.createReview(
+//                reviewDTO,
+//                gameService.findBySlug(slug),
+//                principal.getName()
+//        );
+//        mav.addObject("game", gameService.findBySlug(slug));
+//        mav.setViewName("redirect:" + UrlRoute.URL_REVIEW_GAME);
+//        return mav;
+//    }
 
 
 //    @GetMapping(UrlRoute.URL_GAME_NEW)

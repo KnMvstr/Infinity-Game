@@ -25,27 +25,21 @@ import java.util.Date;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(JsonViews.ReviewPrivateView.class)
     private Long id;
 
     @NotNull
     @Column(columnDefinition = "TEXT", nullable = false)
-    @JsonView(JsonViews.ReviewPublicView.class)
     private String description;
 
      @Column
-    @JsonView(JsonViews.ReviewPrivateView.class)
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    @JsonView(JsonViews.ReviewPublicView.class)
     private float rating;
 
     @Column(nullable = true)
-    @JsonView(JsonViews.ReviewPublicView.class)
     private String image;
 
-    @JsonView(JsonViews.ReviewPublicView.class)
     @Column(name = "lastModify")
     private LocalDateTime moderatedAt;
 
@@ -55,12 +49,10 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "game_id", nullable = false)
-    @JsonView(JsonViews.ReviewPublicView.class)
     private Game game;
 
     @ManyToOne
     @LastModifiedBy
-    @JsonView(JsonViews.ReviewFullView.class)
     private Moderator moderator;
 
 //    public Date getCreatedAt() {

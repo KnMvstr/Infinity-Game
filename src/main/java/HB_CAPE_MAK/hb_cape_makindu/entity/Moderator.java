@@ -18,6 +18,5 @@ import lombok.Setter;
 @DiscriminatorValue("MODERATOR")
 public class Moderator extends User {
 
-    @JsonView(JsonViews.ModeratorPublicView.class)
     private String phoneNumber;
 }

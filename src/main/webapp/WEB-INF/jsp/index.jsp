@@ -7,7 +7,7 @@
 <section class="top_wallpaper">
 </section>
 
-<section class="container d-flex justify-content-evenly col-md-12 gap-4 flex-wrap sibling-fade">
+<section class="container d-flex justify-content-evenly col-md-12 gap-4 flex-wrap mb-5 sibling-fade">
 
     <h2 id="all_comment">Tous les commentaires</h2>
     <%--  FILTRES & DOWNLOAD --%>
@@ -60,7 +60,7 @@
     </div>
 </section>
 
-<section class="container d-flex align-content-around flex-wrap justify-content-around gap-5 card-section">
+<section class="container d-flex align-content-around flex-wrap justify-content-around gap-5 mt-5 mb-5 card-section">
     <c:forEach items="${pageReviews.content}" var="review">
         <div class="container card text-center slide_diagonal" title="${review.game.name}">
             <a href="${UrlRoute.URL_REVIEW}/${review.id}">

@@ -21,11 +21,9 @@ public class Platform implements
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(JsonViews.PlatformPrivateView.class)
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @JsonView(JsonViews.PlatformPublicView.class)
     private String name;
 
     private String slug;

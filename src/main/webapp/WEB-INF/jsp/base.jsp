@@ -21,7 +21,9 @@
 <%-- JAVASCRIPT--%>
     <script type="text/javascript" src="${contextPath}/js/init-sortable.js"></script>
     <script type="text/javascript" src="${contextPath}/js/hide-form.js"></script>
+    <script type="text/javascript" src="${contextPath}/js/alert.js"></script>
     <script type="text/javascript" src="${contextPath}/js/multiple-select.js"></script>
+
 <%-- LOGO --%>
     <link rel="icon" type="image/png" href="${contextPath}/media/Logo-removebg-preview.png"/>
 </head>
@@ -45,7 +47,7 @@
             </li>
             <security:authorize access="hasRole('ROLE_MODERATOR')">
             <li class="nav-item">
-                <a class=" menu-link admin_access" href="#">Ajouter un Jeu</a>
+                <a class=" menu-link admin_access" href="${UrlRoute.URL_GENRE}#add_game">Ajouter un Jeu</a>
             </li>
             </security:authorize>
         </ul>

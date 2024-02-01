@@ -19,13 +19,9 @@
     clip-path: polygon(0 0, 0 80%, 100% 100%, 100% 25%, 100% 0);
 }
 
-/* CSS GAMELIST*/
-.card-section{
-    margin-top: 3vh;
-}
 .card{
     width: 20vw;
-    height:31vh;
+    height:40vh;
     box-shadow: 6px 2px 50px 4px rgba(0, 0, 0, 0.68);
     background:#3E3E3b;
     border:none;
@@ -89,6 +85,7 @@
 }
 .filter >.excel{
     padding-left: 2em;
+    padding-right: 2em;
     margin-top: 1em;
     align-self: center;
     font-variant-caps: all-small-caps;
@@ -96,6 +93,7 @@
 
 .sort-filter {
     color: #fff;
+
 }
 
 /*CSS FOOTER*/
