@@ -2,7 +2,7 @@
 <%@ include file="../tag.jsp" %>
 <c:set var="title" scope="request" value="CapEntre"/>
 <jsp:include flush="true" page="${contextPath}/WEB-INF/jsp/base.jsp"/>
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <header class="top_wallpaper" style="background-image:url(${game.backgroundImage})">
@@ -20,13 +20,15 @@
                 <li class="list-group-item px-3 mb-2">Genre : ${game.genre.name}</li>
                 <li class="list-group-item px-3 mb-2">Type : ${game.businessModel.name}</li>
                 <c:if test="${game.platforms.size() > 0}">
+
+                    <li class="list-group-item px-3"> Disponible sur :
                     <c:forEach items="${game.platforms}" var="platform">
-                        <li class="list-group-item px-3"> Disponible sur :
-                            <a class="link-if" href="#">
-                                    ${platform.name}
-                            </a>
-                        </li>
+                        <a class="link-if" href="#">
+                                ${platform.name}
+                        </a>
+
                     </c:forEach>
+                    </li>
 
                 </c:if>
             </ul>
@@ -38,6 +40,9 @@
     </div>
 </section>
 
+<section class="adbanner1 container">
+    <iframe width="66%" height="500" src="${game.trailer}?autoplay" class="container"></iframe>
+</section>
 <section class="adbanner"></section>
 
 
@@ -50,7 +55,7 @@
         </button>
     </h2>
 
-<%--HIDDEN fORM--%>
+    <%--HIDDEN fORM--%>
     <div class="my-3 d-none"
          data-hide-show-container="formReview">
         <f:form cssClass="col-md-8 col-sm-12 mx-auto"
@@ -77,7 +82,7 @@
         </f:form>
     </div>
 
-<%--  AFFICHAGE DES REVIEW--%>
+    <%--  AFFICHAGE DES REVIEW--%>
     <section class="d-flex justify-content-around align-items-center flex-wrap gap-4">
         <c:forEach items="${game.reviews}" end="5" var="review">
             <div class="d-column-flex gap-2">
@@ -92,7 +97,7 @@
         </c:forEach>
         <core:set var="page" value="${pageReviews}"/>
         <%@ include file="../component/pagination.jsp" %>
-<%--        <jsp:include flush="true" page="${contextPath}/WEB-INF/jsp/component/pagination.jsp"/>--%>
+        <%--        <jsp:include flush="true" page="${contextPath}/WEB-INF/jsp/component/pagination.jsp"/>--%>
     </section>
 </section>
 

@@ -38,6 +38,10 @@ public class Game implements SluggerInterface,
     @Column
     private String backgroundImage;
 
+    @Column
+    private String trailer;
+
+
     @ManyToOne
     @JoinColumn(name = "genre_id", nullable = false)
     private Genre genre;

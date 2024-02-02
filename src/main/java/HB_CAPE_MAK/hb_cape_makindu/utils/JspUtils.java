@@ -16,7 +16,7 @@ public class JspUtils {
 
     //    According to the average of each game
     //    put a pastille corresponding to its trend..."
-    public String getCssClas(float rating) {
+    public String getCssClass(float rating) {
         if (rating <= 5) return "rating-5";
         if (rating <= 10) return "rating-10";
         if (rating <= 15) return "rating-15";

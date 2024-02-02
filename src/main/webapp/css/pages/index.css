@@ -20,7 +20,7 @@
 }
 
 .card{
-    width: 20vw;
+    width: 25vw;
     height:40vh;
     box-shadow: 6px 2px 50px 4px rgba(0, 0, 0, 0.68);
     background:#3E3E3b;
@@ -28,6 +28,26 @@
     color: #f0edee;
     cursor: hand;
     border-radius: 0.5em;
+}
+.rating-5{
+    background-color: #F51313}
+.rating-10{
+    background-color: #F56A47
+}
+.rating-15{
+    background-color:#F5B847
+}
+.rating-19{
+    background-color: #78d12f
+}
+.rating-20{
+    background-color: #3DD14B
+}
+
+.pastille{
+    width: 0.618em;
+    height:0.618em;
+    border-radius: 50%;
 }
 .modstatus{
     font-size: 0.816em;

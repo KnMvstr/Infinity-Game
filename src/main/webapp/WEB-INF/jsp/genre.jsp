@@ -18,7 +18,7 @@
 
 <c:if test="${userLogged.moderator}" >
     <f:form method="POST" modelAttribute="gameDto" class="col-lg-8 col-md-12 col-sm-12 mx-auto" data-hide-show-container="formGame">
-        <div class="row mb-3 d-none">
+        <div class="row mb-3">
             <div class="col-md-8 col-sm-12">
                 <f:label class="col-form-label" path="name">Nom</f:label>
                 <f:input type="text" path="name"

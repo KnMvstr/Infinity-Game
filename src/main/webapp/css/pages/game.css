@@ -42,6 +42,15 @@ ul:before {
 }
 
 /*ADBANNER*/
+.addbanner1{
+    height: 90vh;
+    width: 66vw;
+    display: flex;
+    justify-content: space-around;
+    margin: 10em 0 10em 0;
+
+}
+
 .adbanner {
     background-image: url("https://gaming-cdn.com/img/products/840/pcover/1920x620/840.jpg?v=1701271565");
     background-position: top;

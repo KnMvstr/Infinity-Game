@@ -32,7 +32,7 @@
 
             <%--Connection section--%>
             <div class="text-center">
-                <p>Pas encore membre ? <a href="${contextPath}/register" class="btn-link"> S'inscrire</a></p>
+                <p>Pas encore membre ? <a href="${contextPath}/s-inscrire" class="btn-link"> S'inscrire</a></p>
                 <p>or sign up with:</p>
                 <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
                     <i class="fab fa-facebook-f"></i>

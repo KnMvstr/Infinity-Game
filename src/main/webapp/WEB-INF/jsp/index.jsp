@@ -65,7 +65,12 @@
         <div class="container card text-center slide_diagonal" title="${review.game.name}">
             <a href="${UrlRoute.URL_REVIEW}/${review.id}">
                 <div class="card-body">
-                    <h5 class="card-title">${jspUtils.excerpt(review.game.name, 16)}</h5>
+                    <div class="d-inline">
+                    <h5 class="card-title flex-lg-row">${jspUtils.excerpt(review.game.name, 12)}</h5>
+                    <p class="${jspUtils.getCssClass(review.rating)} pastille" title="${review.rating}"></p>
+                    </div>
+
+
                     <c:if test="${not empty review.moderator}">
                         <cite title="A modérer" class="modstatus">Modéré par ${review.moderator.pseudo}
                             le ${dateUtils.getDateFormat(review.moderatedAt, "dd/MM/yyyy")}</cite>
@@ -95,8 +100,14 @@
                 </c:if>
             </div>
         </div>
+
     </c:forEach>
+<%--    <jsp:include flush="true" page="${contextPath}/WEB-INF/jsp/component/pagination.jsp"/>--%>
+    <c:set var="page" scope="request" value="${pageReviews}"/>
+    <%@ include file="component/pagination.jsp" %>
 </section>
+<%--    <jsp:include flush="true" page="${contextPath}/WEB-INF/jsp/component/pagination.jsp"/>--%>
+
 
 
 <hr>
