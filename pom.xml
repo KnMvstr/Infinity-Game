@@ -47,6 +47,18 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>default</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
         <!-- Dépendance pour ajouter des EventListener -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -66,18 +78,6 @@
             <version>3.0.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <scope>default</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-
         <!--		 Dépendances pour la sécurité (communes)-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -96,14 +96,13 @@
             <version>6.1.2</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
             <version>4.13.0</version>
             <scope>runtime</scope>
         </dependency>
-<!--dependance pour le Faker-->
+        <!--dependance pour le Faker-->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
