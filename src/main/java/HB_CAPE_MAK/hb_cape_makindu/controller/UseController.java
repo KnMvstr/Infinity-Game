@@ -2,10 +2,8 @@ package HB_CAPE_MAK.hb_cape_makindu.controller;
 
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.service.UserServiceImpl;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/user")
+@RequestMapping(value = "/user")
 public class UseController {
     @Autowired
     UserServiceImpl userService;
@@ -26,7 +24,7 @@ public class UseController {
     }
 
     //Get user by id
-    @GetMapping(path = "/{userId}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<User> findById(@PathVariable String userId) {
         User userFound = userService.findById(Long.valueOf(userId));
         return new ResponseEntity<User>(userFound, HttpStatus.OK);
@@ -40,7 +38,7 @@ public class UseController {
     }
 
     //Update user
-    @PutMapping
+    @PutMapping(path = "/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         User UserUpdated = userService.updateUser(user);
         return new ResponseEntity<>(UserUpdated, HttpStatus.ACCEPTED);
