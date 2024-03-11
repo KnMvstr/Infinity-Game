@@ -4,6 +4,7 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.*;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.ReviewRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,13 +16,10 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ReviewServiceImpl {
-
+    @Autowired
     private final ReviewRepository reviewRepository;
+    @Autowired
     private UserServiceImpl userService;
-
-
-
-
 
     public Page<Review> findAllByGame(Game game, Pageable pageable) {
         return reviewRepository.findAllByGame(game, pageable);

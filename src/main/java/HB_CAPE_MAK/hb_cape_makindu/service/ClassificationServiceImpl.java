@@ -6,6 +6,7 @@ import HB_CAPE_MAK.hb_cape_makindu.repository.ClassificationRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOEntityInterface;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ClassificationServiceImpl implements DAOEntityInterface<Classification> {
+    @Autowired
    private ClassificationRepository classificationRepository;
 
     @Override

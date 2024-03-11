@@ -6,6 +6,7 @@ import HB_CAPE_MAK.hb_cape_makindu.repository.GenreRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOEntityInterface;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class GenreServiceImpl implements DAOEntityInterface {
+    @Autowired
     private final GenreRepository genreRepository;
 
     @Override
@@ -36,8 +38,6 @@ public class GenreServiceImpl implements DAOEntityInterface {
         return genreRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }
-
-
 
      public Object findByName(String name) throws Throwable {
         return genreRepository.findByName( name)
