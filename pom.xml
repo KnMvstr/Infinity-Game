@@ -66,17 +66,6 @@
             <version>6.3.1.Final</version>
         </dependency>
 
-        <!-- Dépendances pour les JSP -->
-        <dependency>
-            <groupId>jakarta.servlet.jsp.jstl</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-            <version>3.0.1</version>
-        </dependency>
 
         <!--		 Dépendances pour la sécurité (communes)-->
         <dependency>
@@ -89,12 +78,18 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Dépendance pour la sécurité WebApp -->
+        <!--        		 Dépendances pour la sécurité API (Token JWT)-->
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-taglibs</artifactId>
-            <version>6.1.2</version>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.4.0-b180830.0359</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.antlr</groupId>

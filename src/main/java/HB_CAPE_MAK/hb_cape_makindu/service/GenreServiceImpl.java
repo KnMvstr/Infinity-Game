@@ -1,6 +1,5 @@
 package HB_CAPE_MAK.hb_cape_makindu.service;
 
-import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.GenreRepository;
@@ -39,23 +38,8 @@ public class GenreServiceImpl implements DAOEntityInterface {
     }
 
 
-    public Genre persist(GenreDTO genreDTO, Long id) {
-        if (id != null && genreRepository.findById(id).isEmpty()) {
-            throw new NotFoundCapEntException(
-                    "Genre", "id", id
-            );
-        }
 
-        Genre g = new Genre();
-        g.setId(id);
-        g.setName(genreDTO.getName());
-
-
-        // Si id = null, le save fera un insert, sinon un update
-        return genreRepository.saveAndFlush(g);
-    }
-
-    public Object findByName(String name) throws Throwable {
+     public Object findByName(String name) throws Throwable {
         return genreRepository.findByName( name)
                 .orElseThrow(EntityNotFoundException::new);
     }

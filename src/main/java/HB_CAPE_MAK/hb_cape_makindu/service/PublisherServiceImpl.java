@@ -1,6 +1,5 @@
 package HB_CAPE_MAK.hb_cape_makindu.service;
 
-import HB_CAPE_MAK.hb_cape_makindu.DTO.PublisherDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Publisher;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.PublisherRepository;
@@ -32,21 +31,4 @@ public class PublisherServiceImpl implements DAOEntityInterface<Publisher> {
         return publisherRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }
-
-    public Publisher persist(PublisherDTO publisherDTO, Long id) {
-        if (id != null && publisherRepository.findById(id).isEmpty()) {
-            throw new NotFoundCapEntException(
-                    "Publisher", "id", id
-            );
-        }
-
-        Publisher p = new Publisher();
-        p.setId(id);
-        p.setName(publisherDTO.getName());
-
-        // Si id = null, le save fera un insert, sinon un update
-        return publisherRepository.saveAndFlush(p);
-    }
-
-
 }

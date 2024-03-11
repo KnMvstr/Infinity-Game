@@ -1,15 +1,13 @@
 package HB_CAPE_MAK.hb_cape_makindu.entity;
 
-import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
-import com.fasterxml.jackson.annotation.JsonView;
+
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
+
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Getter

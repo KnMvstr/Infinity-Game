@@ -1,6 +1,5 @@
 package HB_CAPE_MAK.hb_cape_makindu.service;
 
-import HB_CAPE_MAK.hb_cape_makindu.DTO.PlatformDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Platform;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.PlatformRepository;
@@ -35,19 +34,4 @@ public class PlatformServiceImpl implements DAOEntityInterface<Platform> {
     }
 
 
-    public Platform persist(PlatformDTO platformDTO, Long id) {
-        if (id != null && platformRepository.findById(id).isEmpty()) {
-            throw new NotFoundCapEntException(
-                    "Platform", "id", id
-            );
-        }
-
-        Platform p = new Platform();
-        p.setId(id);
-        p.setName(platformDTO.getName());
-
-
-        // Si id = null, le save fera un insert, sinon un update
-        return platformRepository.saveAndFlush(p);
-    }
 }

@@ -1,6 +1,6 @@
 package HB_CAPE_MAK.hb_cape_makindu.service;
 
-import HB_CAPE_MAK.hb_cape_makindu.DTO.UserDTO;
+
 import HB_CAPE_MAK.hb_cape_makindu.entity.Gamer;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Moderator;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
@@ -65,28 +65,5 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
         return List.of(new SimpleGrantedAuthority("ROLE_GAMER"));
     }
 
-
-    public User create(UserDTO userDTO) {
-        User user = new Gamer();
-        user.setPseudo(userDTO.getPseudo());
-        user.setEmail(userDTO.getUsername().toLowerCase());
-        user.setPwd(passwordEncoder.encode(userDTO.getPwd()));
-
-        return userRepository.saveAndFlush(user);
-    }
 }
-
-//    public User edit(Long id, UserPutDTO userPutDTO) {
-//        Optional<User> optionalUser = userRepository.findById(id);
-//        if (optionalUser.isEmpty()) { // OBLIGATOIRE CAR ON A UN OPTIONAL
-//            throw new NotFoundInstantFakingException("User", "id", id); //Mettre en template
-//        }
-//        User user = optionalUser.get();
-//        user.setEmail(userPutDTO.getEmail());
-//        user.setPwd(userPutDTO.getPwd());
-//        // Pas besoin de save dans le cas d'un objet modifié
-//        // C'est-à-dire un objet qui a DEJA été persisté en BDD
-//        userRepository.flush();
-//        return user;
-//    }
 

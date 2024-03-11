@@ -1,20 +1,11 @@
 package HB_CAPE_MAK.hb_cape_makindu.entity;
 
-import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
-import com.fasterxml.jackson.annotation.JsonView;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jdk.jfr.Timestamp;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 
 @Entity
