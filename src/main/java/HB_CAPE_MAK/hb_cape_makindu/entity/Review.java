@@ -50,9 +50,5 @@ public class Review {
     @LastModifiedBy
     private Moderator moderator;
 
-//    public Date getCreatedAt() {
-//        return Date.from(createdAt.atZone(ZoneId.systemDefault()).toInstant());
-//    }
-
 }
 

@@ -56,4 +56,22 @@ public class ReviewServiceImpl {
     public Page<Review> findByUserPseudo(String pseudo, Pageable pageable) {
         return reviewRepository.findByModeratorIsNotNullOrGamerPseudo(pseudo, pageable);
     }
+
+    public Page<Review> getPageReviewByPseudo(String pseudo, Pageable pageable) {
+        User user = userService.findByPseudo(pseudo);
+        Page<Review> pageReviews = findByUserPseudo(pseudo, pageable);
+        if (user.isModerator()) {
+            Sort.Order order = pageable.getSort().getOrderFor("moderator");
+            if (order != null) {
+                if (order.isAscending()) {
+                    pageReviews = reviewRepository.findByModeratorIsNull(pageable);
+                } else {
+                    pageReviews = reviewRepository.findByModeratorIsNotNull(pageable);
+                }
+            } else {
+                pageReviews = reviewRepository.findAll(pageable);
+            }
+        }
+        return pageReviews;
+    }
 }
