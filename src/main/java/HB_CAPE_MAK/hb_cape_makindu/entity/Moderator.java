@@ -1,6 +1,8 @@
 package HB_CAPE_MAK.hb_cape_makindu.entity;
 
 
+import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
@@ -15,6 +17,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @DiscriminatorValue("MODERATOR")
 public class Moderator extends User {
-
+    @JsonView(JsonViews.ModeratorPrivateView.class)
     private String phoneNumber;
 }

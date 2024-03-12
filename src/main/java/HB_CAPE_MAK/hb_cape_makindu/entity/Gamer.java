@@ -1,8 +1,10 @@
 package HB_CAPE_MAK.hb_cape_makindu.entity;
 
 
+import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -25,10 +27,11 @@ import java.util.List;
 @DiscriminatorValue ("GAMER")
 public class Gamer extends User {
 
+    @JsonView(JsonViews.GamerPrivateView.class)
     private LocalDate birthAt;
 
     @OneToMany(mappedBy = "gamer")
-    @JsonBackReference
+    @JsonView(JsonViews.GamerPublicView.class)
     private List<Review> reviews = new ArrayList<>();
 
 }
