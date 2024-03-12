@@ -23,7 +23,6 @@ public abstract class User  implements UserDetails {
     protected Long id;
 
     @Column(nullable = false)
-    @NotEmpty(message = "Name may not be blank")
     protected String pseudo;
 
     @Column(nullable = false)

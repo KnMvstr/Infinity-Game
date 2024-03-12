@@ -22,7 +22,7 @@ public class UserPostDTO {
     private String email;
 
 
-    @NotBlank(message = "Please, give an pseudo")
+    @NotBlank(message = "Please, give a pseudo")
     @Size(message = "The account name must have at least 5 characters", min = 5)
     private String pseudo;
 

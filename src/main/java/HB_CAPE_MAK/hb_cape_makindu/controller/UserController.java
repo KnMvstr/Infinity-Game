@@ -21,8 +21,8 @@ public class UserController {
 
     //Create new User
     @PostMapping
-    User create(@Valid @RequestBody UserPostDTO user) {
-        return userService.create(user);
+    public User create(@Valid @RequestBody UserPostDTO userDTO) {
+        return userService.create(userDTO);
     }
 
     //Get user by id
