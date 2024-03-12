@@ -39,6 +39,7 @@ public class Review {
     @ManyToOne
     @JoinColumn(nullable = false)
     @JsonManagedReference
+//    @JsonIgnore could be used solo here but is radical getting rid of serialization for this data
     private Gamer gamer;
 
     @ManyToOne

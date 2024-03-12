@@ -2,6 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,7 @@ public abstract class User  implements UserDetails {
     protected Long id;
 
     @Column(nullable = false)
+    @NotEmpty(message = "Name may not be blank")
     protected String pseudo;
 
     @Column(nullable = false)

@@ -2,6 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPostDTO;
+import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPutDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Gamer;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Moderator;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
@@ -53,7 +54,18 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     }
 
     // function that update an existing user in database
-    public User updateUser(User user) {
+    public User update(Long id, UserPutDTO userPutDTO) {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
+
+        // Met à jour les champs de l'utilisateur à partir de UserPutDTO
+        if (userPutDTO.getPseudo() != null && !userPutDTO.getPseudo().isEmpty()) {
+            user.setPseudo(userPutDTO.getPseudo());
+        }
+        if (userPutDTO.getPwd() != null && !userPutDTO.getPwd().isEmpty()) {
+            user.setPwd(bCryptPasswordEncoder.encode(userPutDTO.getPwd()));
+        }
+
+        // Sauvegarde l'utilisateur mis à jour
         return userRepository.save(user);
     }
 

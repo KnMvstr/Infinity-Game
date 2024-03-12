@@ -1,6 +1,7 @@
 package HB_CAPE_MAK.hb_cape_makindu.controller;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPostDTO;
+import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPutDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.service.UserServiceImpl;
 import jakarta.validation.Valid;
@@ -38,10 +39,11 @@ public class UserController {
     }
     //Update user
     @PutMapping(path = "/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
-        User UserUpdated = userService.updateUser(user);
-        return new ResponseEntity<>(UserUpdated, HttpStatus.ACCEPTED);
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserPutDTO userPutDTO) {
+        User userUpdated = userService.update(id, userPutDTO);
+        return new ResponseEntity<>(userUpdated, HttpStatus.ACCEPTED);
     }
+
     //Delete user
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
