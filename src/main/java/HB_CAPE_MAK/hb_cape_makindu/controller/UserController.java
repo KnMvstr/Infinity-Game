@@ -31,12 +31,26 @@ public class UserController {
         User userFound = userService.findById((id));
         return new ResponseEntity<User>(userFound, HttpStatus.OK);
     }
-    //Get all users
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> usersList = userService.getAllUsers();
+    //Get user by pseudo
+    @GetMapping(path = "/by_pseudo/{pseudo}")
+    public ResponseEntity<User> findByPseudo(@PathVariable String pseudo) {
+        User userPseudo = userService.findByPseudo((pseudo));
+        return new ResponseEntity<User>(userPseudo, HttpStatus.OK);
+    }
+    //Get all Gamers
+    @GetMapping (path = "/{gamers}")
+    public ResponseEntity<List<User>> getAllGamers() {
+        List<User> usersList = userService.getAllGamers();
         return new ResponseEntity<List<User>>(usersList, HttpStatus.OK);
     }
+    //Get all Moderators
+    @GetMapping (path = "/{moderators}")
+    public ResponseEntity<List<User>> getAllModerators() {
+        List<User> usersList = userService.getAllModerators();
+        return new ResponseEntity<List<User>>(usersList, HttpStatus.OK);
+    }
+
+
     //Update user
     @PutMapping(path = "/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserPutDTO userPutDTO) {

@@ -48,9 +48,13 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
         return userRepository.saveAndFlush(user);
     }
 
-    // function that retrieve all users from database
-    public List<User> getAllUsers () {
-        return userRepository.findAll();
+    // function that retrieve all Gamers from database
+    public List<User> getAllGamers () {
+        return userRepository.findAllExceptModerators();
+    }
+    // function that retrieve all Moderators from database
+    public List<User> getAllModerators() {
+        return userRepository.findAllExceptGamers();
     }
 
     // function that update an existing user in database
@@ -74,6 +78,12 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+
+    public User findByPseudo(String pseudo) {
+        return userRepository.findByPseudo(pseudo)
+                .orElseThrow(EntityNotFoundException::new);
+    }
     @Override
     public User findById(Long id) {
         return userRepository.findById(id)
@@ -83,11 +93,6 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-    public User findByPseudo(String pseudo) {
-        return userRepository.findByPseudo(pseudo)
-                .orElseThrow(EntityNotFoundException::new);
-    }
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
