@@ -21,15 +21,19 @@ import java.util.List;
 public abstract class User  implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(JsonViews.UserPrivateView.class)
     protected Long id;
 
     @Column(nullable = false)
+    @JsonView(JsonViews.UserPublicView.class)
     protected String pseudo;
 
     @Column(nullable = false)
+    @JsonView(JsonViews.UserPrivateView.class)
     protected String email;
 
     @Column(nullable = false)
+    @JsonView(JsonViews.UserPrivateView.class)
     protected String pwd;
 
     @Override

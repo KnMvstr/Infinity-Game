@@ -20,45 +20,56 @@ public class Game implements SluggerInterface,
         NomenclatureInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(JsonViews.GamePrivateView.class)
     private Long id;
 
     @Column(nullable = false)
+    @JsonView(JsonViews.GamePublicView.class)
     private String name;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @JsonView(JsonViews.GamePublicView.class)
     private String description;
 
     @Column(name = "release_date", nullable = false)
     @PastOrPresent
+    @JsonView(JsonViews.GamePublicView.class)
     private LocalDate releaseDate;
 
     @Column(nullable = false)
+    @JsonView(JsonViews.GamePublicView.class)
     private String image;
 
     @Column
+    @JsonView(JsonViews.GamePublicView.class)
     private String backgroundImage;
 
     @Column
+    @JsonView(JsonViews.GamePublicView.class)
     private String trailer;
 
 
     @ManyToOne
     @JoinColumn(name = "genre_id", nullable = false)
+    @JsonView(JsonViews.GamePublicView.class)
     private Genre genre;
 
-    
+    @JsonView(JsonViews.GamePrivateView.class)
     private String slug;
 
     @ManyToOne
     @JoinColumn(name = "publisher_id", nullable = false)
+    @JsonView(JsonViews.GamePublicView.class)
     private Publisher publisher;
 
     @ManyToOne
     @JoinColumn(name = "business_Model_id", nullable = false)
+    @JsonView(JsonViews.GamePublicView.class)
     private BusinessModel businessModel;
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonView(JsonViews.GamePrivateView.class)
     private Moderator moderator;
 
     @ManyToMany
@@ -67,13 +78,16 @@ public class Game implements SluggerInterface,
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "platform_id")
     )
+    @JsonView(JsonViews.GamePublicView.class)
     private List<Platform> platforms = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "classification_id")
+    @JsonView(JsonViews.GamePublicView.class)
     private Classification classification;
 
     @OneToMany(mappedBy = "game")
+    @JsonView(JsonViews.GamePrivateView.class)
     private List<Review> reviews = new ArrayList<>();
 
     @Override

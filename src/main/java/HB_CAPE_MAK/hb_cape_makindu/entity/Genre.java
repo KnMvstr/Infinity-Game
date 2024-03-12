@@ -19,14 +19,18 @@ public class Genre implements SluggerInterface,
         NomenclatureInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(JsonViews.GenrePrivateView.class)
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @JsonView(JsonViews.GenrePublicView.class)
     private String name;
 
+    @JsonView(JsonViews.GenrePublicView.class)
     private String slug;
 
     @OneToMany(mappedBy = "genre")
+    @JsonView(JsonViews.GenrePublicView.class)
     private List<Game> games = new ArrayList<>();
 
     @Override

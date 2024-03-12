@@ -20,14 +20,18 @@ public class BusinessModel implements SluggerInterface,
         NomenclatureInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(JsonViews.BusinessModelPrivateView.class)
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @JsonView(JsonViews.BusinessModelPublicView.class)
+
     private String name;
 
+    @JsonView(JsonViews.BusinessModelPrivateView.class)
     private String slug;
 
-
+    @JsonView(JsonViews.BusinessModelPublicView.class)
     @OneToMany(mappedBy = "businessModel")
     private List<Game> games = new ArrayList<>();
 

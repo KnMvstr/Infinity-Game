@@ -21,14 +21,19 @@ public class Platform implements
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(JsonViews.PlatformPrivateView.class)
+
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @JsonView(JsonViews.PlatformPublicView.class)
     private String name;
 
+    @JsonView(JsonViews.PlatformPublicView.class)
     private String slug;
 
     @ManyToMany(mappedBy = "platforms")
+    @JsonView(JsonViews.PlatformPublicView.class)
     private List<Game> games = new ArrayList<>();
 
     @Override
