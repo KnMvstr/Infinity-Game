@@ -26,8 +26,8 @@ public class UserController {
 
     //Get user by id
     @GetMapping(path = "/{id}")
-    public ResponseEntity<User> findById(@PathVariable String userId) {
-        User userFound = userService.findById(Long.valueOf(userId));
+    public ResponseEntity<User> findById(@PathVariable Long id) {
+        User userFound = userService.findById((id));
         return new ResponseEntity<User>(userFound, HttpStatus.OK);
     }
     //Get all users
