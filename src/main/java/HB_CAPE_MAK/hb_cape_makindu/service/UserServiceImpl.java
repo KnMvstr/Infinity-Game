@@ -51,6 +51,7 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     public List<User> getAllUsers () {
         return userRepository.findAll();
     }
+
     // function that update an existing user in database
     public User updateUser(User user) {
         return userRepository.save(user);

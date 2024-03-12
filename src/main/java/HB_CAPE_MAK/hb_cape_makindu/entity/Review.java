@@ -1,6 +1,8 @@
 package HB_CAPE_MAK.hb_cape_makindu.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -36,6 +38,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonManagedReference
     private Gamer gamer;
 
     @ManyToOne

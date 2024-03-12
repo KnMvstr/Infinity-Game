@@ -1,6 +1,8 @@
 package HB_CAPE_MAK.hb_cape_makindu.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -26,6 +28,7 @@ public class Gamer extends User {
     private LocalDate birthAt;
 
     @OneToMany(mappedBy = "gamer")
+    @JsonBackReference
     private List<Review> reviews = new ArrayList<>();
 
 }
