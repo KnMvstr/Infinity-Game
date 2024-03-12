@@ -20,8 +20,8 @@ public class UserController {
 
     //Create new User
     @PostMapping
-        User create(@Valid @RequestBody UserPostDTO user) {
-            return userService.create(user);
+    User create(@Valid @RequestBody UserPostDTO user) {
+        return userService.create(user);
     }
 
     //Get user by id
@@ -30,26 +30,22 @@ public class UserController {
         User userFound = userService.findById(Long.valueOf(userId));
         return new ResponseEntity<User>(userFound, HttpStatus.OK);
     }
-
     //Get all users
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> usersList = userService.getAllUsers();
         return new ResponseEntity<List<User>>(usersList, HttpStatus.OK);
     }
-
     //Update user
     @PutMapping(path = "/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         User UserUpdated = userService.updateUser(user);
         return new ResponseEntity<>(UserUpdated, HttpStatus.ACCEPTED);
     }
-
     //Delete user
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }

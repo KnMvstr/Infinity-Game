@@ -18,12 +18,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-
 import java.util.List;
 import java.util.Optional;
-
-
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEmailInterface, UserDetailsService {
@@ -55,7 +51,6 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     public List<User> getAllUsers () {
         return userRepository.findAll();
     }
-
     // function that update an existing user in database
     public User updateUser(User user) {
         return userRepository.save(user);
@@ -71,12 +66,10 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
         return userRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }
-
     @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
     public User findByPseudo(String pseudo) {
         return userRepository.findByPseudo(pseudo)
                 .orElseThrow(EntityNotFoundException::new);
@@ -87,21 +80,16 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = (User) userRepository.findByPseudo(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
         return new org.springframework.security.core.userdetails.User(
                 user.getPseudo(),
                 user.getPassword(),
                 userGrantedAuthority(user)
         );
     }
-
-
     private List<GrantedAuthority> userGrantedAuthority(User user) {
         if (user instanceof Moderator) {
             return List.of(new SimpleGrantedAuthority("ROLE_MODERATOR"));
         }
         return List.of(new SimpleGrantedAuthority("ROLE_GAMER"));
     }
-
 }
-

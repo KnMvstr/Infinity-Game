@@ -1,4 +1,5 @@
 package HB_CAPE_MAK.hb_cape_makindu.DTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

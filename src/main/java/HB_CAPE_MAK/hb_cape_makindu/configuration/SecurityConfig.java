@@ -37,16 +37,16 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
-                        auth
-                                .requestMatchers("/api/login").permitAll()
-                                .requestMatchers("/api/register").permitAll()
-                                .requestMatchers("/api/game/**").permitAll()
-                                .requestMatchers("/api/user/**").permitAll()
+                                auth
+                                        .requestMatchers("/api/login").permitAll()
+                                        .requestMatchers("/api/register").permitAll()
+                                        .requestMatchers("/api/game/**").permitAll()
+                                        .requestMatchers("/api/user/**").permitAll()
 
-                                .requestMatchers(HttpMethod.POST, "/api/review").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/**").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/api/**").permitAll()
+                                        .requestMatchers(HttpMethod.POST, "/api/review").permitAll()
+                                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                                        .requestMatchers(HttpMethod.POST, "/api/**").permitAll()
+                                        .requestMatchers(HttpMethod.PUT, "/api/**").permitAll()
 
 
 //                                .requestMatchers(HttpMethod.POST, "/api/review").authenticated()

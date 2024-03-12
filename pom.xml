@@ -58,19 +58,20 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Dépendance du SWAGGER-UI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+
+
 
         <!-- Dépendance pour ajouter des EventListener -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>6.3.1.Final</version>
-        </dependency>
-
-        <!-- Dépendance du SWAGGER-UI -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.0.3</version>
         </dependency>
 
 
