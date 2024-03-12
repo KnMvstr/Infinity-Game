@@ -1,6 +1,8 @@
 package HB_CAPE_MAK.hb_cape_makindu.service;
 
 
+import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPostDTO;
+import HB_CAPE_MAK.hb_cape_makindu.entity.Gamer;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Moderator;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.repository.UserRepository;
@@ -26,13 +28,27 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEmailInterface, UserDetailsService {
     @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
     private UserRepository userRepository;
-    private BCryptPasswordEncoder passwordEncoder;
 
+    public User create(UserPostDTO userDTO) {
+        User user;
+        if ("GAMER".equalsIgnoreCase(userDTO.getUserType())) {
+            user = new Gamer();
+            // Initialisez spécifiquement un Gamer si nécessaire
+        } else if ("MODERATOR".equalsIgnoreCase(userDTO.getUserType())) {
+            user = new Moderator();
+            // Initialisez spécifiquement un Moderator si nécessaire
+        } else {
+            throw new IllegalArgumentException("Invalid user type");
+        }
+        user.setPseudo(userDTO.getPseudo()); // Assurez-vous que `setName` est censé être `setPseudo`
+        user.setEmail(userDTO.getEmail().toLowerCase());
+        user.setPwd(bCryptPasswordEncoder.encode(userDTO.getPwd()));
 
-    // function to create a new user
-    public User createUser(User user) {
-        return userRepository.save(user);
+        return userRepository.saveAndFlush(user);
     }
 
     // function that retrieve all users from database
@@ -44,6 +60,7 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     public User updateUser(User user) {
         return userRepository.save(user);
     }
+
 
     // function that remove a user from database by it's id
     public void deleteUser(Long id) {
@@ -64,6 +81,7 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
         return userRepository.findByPseudo(pseudo)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

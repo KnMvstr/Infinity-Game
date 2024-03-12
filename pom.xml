@@ -66,6 +66,13 @@
             <version>6.3.1.Final</version>
         </dependency>
 
+        <!-- Dépendance du SWAGGER-UI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+
 
         <!--		 Dépendances pour la sécurité (communes)-->
         <dependency>

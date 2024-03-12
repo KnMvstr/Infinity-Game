@@ -1,7 +1,9 @@
 package HB_CAPE_MAK.hb_cape_makindu.controller;
 
+import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPostDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.service.UserServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +14,14 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/user")
-public class UseController {
+public class UserController {
     @Autowired
     UserServiceImpl userService;
 
     //Create new User
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User newUser = userService.createUser(user);
-        return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+        User create(@Valid @RequestBody UserPostDTO user) {
+            return userService.create(user);
     }
 
     //Get user by id
