@@ -53,7 +53,8 @@ public class JsonViews {
 
 
     //    PUBLISHER VIEW
-        public interface PublisherPublicView {}
+    public interface PublisherMinimalView {}
+        public interface PublisherPublicView extends PublisherMinimalView {}
     public interface PublisherPrivateView extends PublisherPublicView {}
 
 
