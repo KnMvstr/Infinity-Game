@@ -40,7 +40,8 @@ public class JsonViews {
 
 
     //    GENRE VIEW
-    public interface GenrePublicView {}
+    public interface GenreMinimalView {}
+    public interface GenrePublicView extends GenreMinimalView {}
     public interface GenrePrivateView extends GenrePublicView {}
 
 

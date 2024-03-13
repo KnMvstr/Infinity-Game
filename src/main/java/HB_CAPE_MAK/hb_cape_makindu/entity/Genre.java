@@ -25,7 +25,7 @@ public class Genre implements SluggerInterface,
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @JsonView(JsonViews.GenrePublicView.class)
+    @JsonView(JsonViews.GenreMinimalView.class)
     private String name;
 
     @JsonView(JsonViews.GenrePublicView.class)
