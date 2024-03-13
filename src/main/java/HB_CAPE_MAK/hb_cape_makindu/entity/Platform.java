@@ -28,14 +28,14 @@ public class Platform implements
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @JsonView(JsonViews.PlatformPublicView.class)
+    @JsonView(JsonViews.PlatformMinimalView.class)
     private String name;
 
     @JsonView(JsonViews.PlatformPublicView.class)
     private String slug;
 
     @ManyToMany(mappedBy = "platforms")
-    @JsonView(JsonViews.PlatformPublicView.class)
+    @JsonView(JsonViews.PlatformPrivateView.class)
     @JsonBackReference
     private List<Game> games = new ArrayList<>();
 

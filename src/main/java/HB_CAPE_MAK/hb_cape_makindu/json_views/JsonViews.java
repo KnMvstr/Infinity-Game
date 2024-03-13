@@ -47,7 +47,8 @@ public class JsonViews {
 
 
     //    PLATFORM VIEW
-    public interface PlatformPublicView {}
+    public interface PlatformMinimalView {}
+    public interface PlatformPublicView extends  PlatformMinimalView{}
     public interface PlatformPrivateView extends PlatformPublicView {}
 
 
