@@ -32,6 +32,7 @@ public class Gamer extends User {
 
     @OneToMany(mappedBy = "gamer")
     @JsonView(JsonViews.GamerPublicView.class)
+    @JsonBackReference
     private List<Review> reviews = new ArrayList<>();
 
 }

@@ -4,6 +4,7 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.NomenclatureInterface;
 import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.SluggerInterface;
 
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
@@ -89,6 +90,7 @@ public class Game implements SluggerInterface,
 
     @OneToMany(mappedBy = "game")
     @JsonView(JsonViews.GamePrivateView.class)
+    @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
     @Override

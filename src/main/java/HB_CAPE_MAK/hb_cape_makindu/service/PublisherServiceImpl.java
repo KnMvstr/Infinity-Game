@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -30,4 +31,6 @@ public class PublisherServiceImpl implements DAOEntityInterface<Publisher> {
         return publisherRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }
+    
 }
+

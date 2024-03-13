@@ -42,6 +42,7 @@ public class SecurityConfig {
                                         .requestMatchers("/api/register").permitAll()
                                         .requestMatchers("/api/game/**").permitAll()
                                         .requestMatchers("/api/user/**").permitAll()
+                                        .requestMatchers("/api/business/**").permitAll()
 
                                         .requestMatchers(HttpMethod.POST, "/api/review").permitAll()
                                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()

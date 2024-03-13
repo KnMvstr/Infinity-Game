@@ -47,6 +47,7 @@ public class Review {
     @ManyToOne
     @JoinColumn(nullable = false)
     @JsonView(JsonViews.ReviewPublicView.class)
+    @JsonManagedReference
     private Gamer gamer;
 
     @ManyToOne

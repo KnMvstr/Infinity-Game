@@ -1,5 +1,6 @@
 package HB_CAPE_MAK.hb_cape_makindu.DTO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ReviewPutDTO {
+public class BusinessModelDTO {
 
-    private String description;
+    @NotBlank(message = "Specify the name of the brand")
+    private String name;
+
 }
