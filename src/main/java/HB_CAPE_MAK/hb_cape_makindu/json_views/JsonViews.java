@@ -12,22 +12,36 @@ public class JsonViews {
 
 
 
+
+
+    //    GAME VIEW
+    public interface GamePublicView extends PlatformPublicView, BusinessModelPublicView, GenrePublicView, PublisherPublicView, ClassificationPublicView {}
+    public interface GamePrivateView extends GamePublicView {}
+
+    public interface GamePlusReview extends GamePrivateView {}
+
+
+
+
+
+
     //     BUSINESS MODEL VIEW
     public interface BusinessModelPublicView {}
     public interface BusinessModelPrivateView extends BusinessModelPublicView {}
-    public interface BusinessModelFullView extends BusinessModelPublicView, BusinessModelPrivateView {}
+
+
     //     CLASSIFICATION VIEW
     public interface ClassificationPublicView {}
     public interface ClassificationPrivateView extends ClassificationPublicView {}
-    public interface ClassificationFullView extends ClassificationPublicView, ClassificationPrivateView {}
-    //    GAME VIEW
-    public interface GamePublicView {}
-    public interface GamePrivateView extends GamePublicView {}
-    public interface GameFullView extends GamePublicView, GamePrivateView {}
+
+    public interface ClassificationFullView extends ClassificationPrivateView {}
+
+
+
+
     //    GENRE VIEW
     public interface GenrePublicView {}
     public interface GenrePrivateView extends GenrePublicView {}
-
 
 
 
@@ -37,7 +51,7 @@ public class JsonViews {
 
 
     //    PUBLISHER VIEW
-    public interface PublisherPublicView {}
+        public interface PublisherPublicView {}
     public interface PublisherPrivateView extends PublisherPublicView {}
 
 

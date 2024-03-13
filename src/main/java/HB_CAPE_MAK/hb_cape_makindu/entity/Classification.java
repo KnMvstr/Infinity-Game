@@ -5,6 +5,7 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.SluggerInterface;
 
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,10 +28,10 @@ public class Classification implements SluggerInterface,
     @JsonView(JsonViews.ClassificationPublicView.class)
     private String name;
 
-    @JsonView(JsonViews.ClassificationPublicView.class)
+    @JsonView(JsonViews.ClassificationFullView.class)
     private String description;
 
-    @JsonView(JsonViews.ClassificationPublicView.class)
+    @JsonView(JsonViews.ClassificationFullView.class)
     private String image;
 
     @JsonView(JsonViews.ClassificationPrivateView.class)

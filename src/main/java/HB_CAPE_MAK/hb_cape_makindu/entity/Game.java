@@ -54,6 +54,7 @@ public class Game implements SluggerInterface,
     @ManyToOne
     @JoinColumn(name = "genre_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
+    @JsonManagedReference
     private Genre genre;
 
     @JsonView(JsonViews.GamePrivateView.class)
@@ -62,16 +63,19 @@ public class Game implements SluggerInterface,
     @ManyToOne
     @JoinColumn(name = "publisher_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
+    @JsonManagedReference
     private Publisher publisher;
 
     @ManyToOne
     @JoinColumn(name = "business_Model_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
+    @JsonManagedReference
     private BusinessModel businessModel;
 
     @ManyToOne
     @JoinColumn(nullable = false)
     @JsonView(JsonViews.GamePrivateView.class)
+    @JsonManagedReference
     private Moderator moderator;
 
     @ManyToMany
@@ -81,6 +85,7 @@ public class Game implements SluggerInterface,
             inverseJoinColumns = @JoinColumn(name = "platform_id")
     )
     @JsonView(JsonViews.GamePublicView.class)
+    @JsonManagedReference
     private List<Platform> platforms = new ArrayList<>();
 
     @ManyToOne
@@ -90,7 +95,7 @@ public class Game implements SluggerInterface,
     private Classification classification;
 
     @OneToMany(mappedBy = "game")
-    @JsonView(JsonViews.GamePrivateView.class)
+    @JsonView(JsonViews.GamePlusReview.class)
     @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 

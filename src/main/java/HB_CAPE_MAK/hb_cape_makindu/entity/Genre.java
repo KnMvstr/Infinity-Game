@@ -4,6 +4,7 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.NomenclatureInterface;
 import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.SluggerInterface;
 
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,6 +33,7 @@ public class Genre implements SluggerInterface,
 
     @OneToMany(mappedBy = "genre")
     @JsonView(JsonViews.GenrePublicView.class)
+    @JsonBackReference
     private List<Game> games = new ArrayList<>();
 
     @Override
