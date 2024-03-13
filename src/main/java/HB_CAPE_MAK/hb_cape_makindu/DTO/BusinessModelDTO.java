@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class BusinessModelDTO {
 
-    @NotBlank(message = "Specify the name of the brand")
+    @NotBlank(message = "Specify the name of the business model")
     private String name;
 
 }

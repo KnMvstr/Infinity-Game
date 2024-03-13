@@ -31,8 +31,9 @@ public class BusinessModel implements SluggerInterface,
     @JsonView(JsonViews.BusinessModelPrivateView.class)
     private String slug;
 
-    @JsonView(JsonViews.BusinessModelPublicView.class)
+
     @OneToMany(mappedBy = "businessModel")
+    @JsonView(JsonViews.BusinessModelPublicView.class)
     @JsonBackReference
     private List<Game> games = new ArrayList<>();
 
