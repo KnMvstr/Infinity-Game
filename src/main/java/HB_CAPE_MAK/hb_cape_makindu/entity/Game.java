@@ -86,6 +86,7 @@ public class Game implements SluggerInterface,
     @ManyToOne
     @JoinColumn(name = "classification_id")
     @JsonView(JsonViews.GamePublicView.class)
+    @JsonManagedReference
     private Classification classification;
 
     @OneToMany(mappedBy = "game")
