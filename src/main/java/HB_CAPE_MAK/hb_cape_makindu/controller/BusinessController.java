@@ -1,7 +1,9 @@
 package HB_CAPE_MAK.hb_cape_makindu.controller;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.BusinessModelDTO;
+import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.BusinessModel;
+import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import HB_CAPE_MAK.hb_cape_makindu.service.BusinessModelServiceImpl;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -21,9 +23,17 @@ public class BusinessController {
     private BusinessModelServiceImpl businessModelService;
 
     @GetMapping
-    @JsonView(JsonViews.BusinessModelPublicView.class)
+    @JsonView(JsonViews.BusinessModelPrivateView.class)
     List<BusinessModel> getAllBusinessModel() {
         return businessModelService.findAll();
+    }
+
+    @GetMapping(path = "/sorted")
+    @JsonView(JsonViews.GenrePrivateView.class)
+    public List<BusinessModel> getAllByFieldAndDirection(
+            @RequestParam String field,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return businessModelService.findAllByFieldAndDirection(field, direction);
     }
 
     @GetMapping(path = "/asc")
@@ -38,17 +48,19 @@ public class BusinessController {
         return businessModelService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
+    @JsonView(JsonViews.BusinessModelPublicView.class)
     public BusinessModel persist(@Valid @RequestBody BusinessModelDTO businessModelDTO) {
         return businessModelService.persist(businessModelDTO, null);
     }
 
-    @PutMapping("/{id}")
-    public BusinessModel persist (@Valid @RequestBody BusinessModelDTO businessModelDTO, @PathVariable Long id){
-        return businessModelService.persist(businessModelDTO, id);
+    @PutMapping(path = "/edit/{id}")
+    public ResponseEntity<BusinessModel> updateGenre(@PathVariable Long id, @RequestBody BusinessModelDTO businessModelDTO) {
+        BusinessModel businessModelUpdated = businessModelService.persist(businessModelDTO, id);
+        return new ResponseEntity<>(businessModelUpdated, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         businessModelService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

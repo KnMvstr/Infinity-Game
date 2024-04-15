@@ -7,10 +7,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -37,10 +40,22 @@ public abstract class User  implements UserDetails {
     @JsonView(JsonViews.UserPrivateView.class)
     protected String pwd;
 
+
+
+//Authorities method setted to be processed by AngularApp
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if (this instanceof Moderator) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_MODERATOR"));
+        }
+        if (this instanceof Gamer) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_GAMER"));
+        }
+        return authorities;
     }
+
+
     @Override
     public String getPassword() {
         return pwd;

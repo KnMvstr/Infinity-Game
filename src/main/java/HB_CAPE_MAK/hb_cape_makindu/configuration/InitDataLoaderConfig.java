@@ -5,8 +5,6 @@ import HB_CAPE_MAK.hb_cape_makindu.service.*;
 import com.github.javafaker.Faker;
 import HB_CAPE_MAK.hb_cape_makindu.entity.*;
 import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.NomenclatureInterface;
-import HB_CAPE_MAK.hb_cape_makindu.repository.*;
-import HB_CAPE_MAK.hb_cape_makindu.service.*;
 import HB_CAPE_MAK.hb_cape_makindu.utils.Slugger;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -17,10 +15,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 @Component
 @AllArgsConstructor
@@ -74,11 +69,14 @@ public class InitDataLoaderConfig implements CommandLineRunner {
         for (long i = 1L; i <= 200; i++) {
             if (userRepository.findById(i).isEmpty()) {
                 User user;
-                if (i <= 5) {
-                    user = new Moderator();
+                if (i == 5 || i == 6) {
+                    user = new SuperAdmin();  // Création d'un SuperAdmin pour i=5 et i=6
+                    ((SuperAdmin) user).setTitle(faker.superhero().name()); // Définition du titre pour SuperAdmin
+                } else if (i <= 4) {
+                    user = new Moderator();  // Création d'un Moderator pour i=1 à 4
                     ((Moderator) user).setPhoneNumber(faker.phoneNumber().cellPhone());
                 } else {
-                    user = new Gamer();
+                    user = new Gamer();  // Création d'un Gamer pour tous les autres i
                     LocalDate localDate = new java.sql.Date(faker.date().birthday(12, 60).getTime()).toLocalDate();
                     ((Gamer) user).setBirthAt(localDate);
                 }
@@ -164,8 +162,17 @@ public class InitDataLoaderConfig implements CommandLineRunner {
             LocalDateTime localDate = new java.sql.Date(faker.date().birthday(0, 2).getTime()).toLocalDate().atTime(0, 0);
             review.setCreatedAt(localDate);
             review.setRating((float) rand.nextLong(20));
-            review.setGamer((Gamer) userService.findById(rand.nextLong(200 - 6) + 6));
-            review.setGame(gameService.findById(rand.nextLong(21 - 1) + 1));
+            Optional<User> possibleGamer = Optional.ofNullable(userService.findById(rand.nextLong(200 - 8) + 8));
+            if (possibleGamer.isPresent() && possibleGamer.get() instanceof Gamer) {
+                review.setGamer((Gamer) possibleGamer.get());
+            } else {
+                System.out.println("User is not a Gamer or not found for ID: " + (rand.nextLong(200 - 8) + 8));
+                continue;  // Skip this review if no valid gamer is found
+            }
+            // Safely assigning Game
+            Optional<Game> game = Optional.ofNullable(gameService.findById(rand.nextLong(21 - 1) + 1));
+            game.ifPresent(review::setGame);  // Only set the game if present
+            
             review.setDescription(faker.chuckNorris().fact() + "</br>" + faker.lorem().paragraph(3));
             if (i%5 != 0) {
                 review.setModerator((Moderator) userService.findById(rand.nextLong(5 - 1) + 1));

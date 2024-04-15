@@ -20,7 +20,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findAllByCreatedAtOrderByCreatedAtDesc(LocalDateTime createdAt);
 
     @Query("SELECT r FROM Review r WHERE r.game = :game")
-    Page<Review> findAllByGame(@Param("game") Game game, Pageable pageable);
+    List<Review> findAllByGame(@Param("game") Game game);
 
     Page<Review> findByModeratorIsNotNullOrGamerPseudo(String pseudo, Pageable pageable);
 

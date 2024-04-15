@@ -33,6 +33,7 @@ public class UserController {
         User userFound = userService.findById((id));
         return new ResponseEntity<User>(userFound, HttpStatus.OK);
     }
+
     //Get user by pseudo
     @GetMapping(path = "/by_pseudo/{pseudo}")
     @JsonView(JsonViews.UserPrivateView.class)
@@ -40,6 +41,15 @@ public class UserController {
         User userPseudo = userService.findByPseudo((pseudo));
         return new ResponseEntity<User>(userPseudo, HttpStatus.OK);
     }
+
+    //Get all Users
+    @GetMapping
+    @JsonView(JsonViews.UserPrivateView.class)
+    public ResponseEntity<List<User>> getAll() {
+        List<User> usersList = userService.getAll();
+        return new ResponseEntity<List<User>>(usersList, HttpStatus.OK);
+    }
+
     //Get all Gamers
     @GetMapping (path = "/{gamers}")
     @JsonView(JsonViews.GamerPublicView.class)
@@ -47,6 +57,7 @@ public class UserController {
         List<User> usersList = userService.getAllGamers();
         return new ResponseEntity<List<User>>(usersList, HttpStatus.OK);
     }
+
     //Get all Moderators
     @GetMapping (path = "/{moderators}")
     @JsonView(JsonViews.ModeratorPrivateView.class)
@@ -54,7 +65,6 @@ public class UserController {
         List<User> usersList = userService.getAllModerators();
         return new ResponseEntity<List<User>>(usersList, HttpStatus.OK);
     }
-
 
     //Update user
     @PutMapping(path = "/edit/{id}")

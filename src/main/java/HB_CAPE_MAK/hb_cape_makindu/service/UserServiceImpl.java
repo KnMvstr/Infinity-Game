@@ -48,6 +48,10 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
         return userRepository.saveAndFlush(user);
     }
 
+
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
     // function that retrieve all Gamers from database
     public List<User> getAllGamers () {
         return userRepository.findAllExceptModerators();

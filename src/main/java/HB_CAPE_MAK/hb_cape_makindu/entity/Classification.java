@@ -4,9 +4,10 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.NomenclatureInterface;
 import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.SluggerInterface;
 
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,10 +30,10 @@ public class Classification implements SluggerInterface,
     @JsonView(JsonViews.ClassificationPrivateView.class)
     private Long id;
 
-    @JsonView(JsonViews.ClassificationPublicView.class)
+    @JsonView(JsonViews.ClassificationMinimalView.class)
     private String name;
 
-    @JsonView(JsonViews.ClassificationFullView.class)
+    @JsonView(JsonViews.ClassificationPublicView.class)
     private String description;
 
     @JsonView(JsonViews.ClassificationFullView.class)
@@ -39,9 +44,7 @@ public class Classification implements SluggerInterface,
 
     @OneToMany (mappedBy = "classification")
     @JsonView(JsonViews.ClassificationPublicView.class)
-    @JsonBackReference
     private List<Game> games = new ArrayList<>();
-
 
     @Override
     public String getField() {

@@ -4,8 +4,7 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.NomenclatureInterface;
 import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.SluggerInterface;
 
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
@@ -14,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,11 +25,11 @@ public class Game implements SluggerInterface,
         NomenclatureInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(JsonViews.GamePrivateView.class)
+    @JsonView(JsonViews.GamePublicView.class)
     private Long id;
 
     @Column(nullable = false)
-    @JsonView(JsonViews.GamePublicView.class)
+    @JsonView(JsonViews.GameMinimalView.class)
     private String name;
 
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -50,11 +53,9 @@ public class Game implements SluggerInterface,
     @JsonView(JsonViews.GamePublicView.class)
     private String trailer;
 
-
     @ManyToOne
     @JoinColumn(name = "genre_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
-    @JsonManagedReference
     private Genre genre;
 
     @JsonView(JsonViews.GamePrivateView.class)
@@ -63,19 +64,17 @@ public class Game implements SluggerInterface,
     @ManyToOne
     @JoinColumn(name = "publisher_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
-    @JsonManagedReference
     private Publisher publisher;
 
     @ManyToOne
     @JoinColumn(name = "business_Model_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
-    @JsonManagedReference
+    @JsonBackReference
     private BusinessModel businessModel;
 
     @ManyToOne
     @JoinColumn(nullable = false)
     @JsonView(JsonViews.GamePrivateView.class)
-    @JsonManagedReference
     private Moderator moderator;
 
     @ManyToMany
@@ -85,13 +84,11 @@ public class Game implements SluggerInterface,
             inverseJoinColumns = @JoinColumn(name = "platform_id")
     )
     @JsonView(JsonViews.GamePublicView.class)
-    @JsonManagedReference
     private List<Platform> platforms = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "classification_id")
     @JsonView(JsonViews.GamePublicView.class)
-    @JsonManagedReference
     private Classification classification;
 
     @OneToMany(mappedBy = "game")

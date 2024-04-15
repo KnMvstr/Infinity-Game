@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class GameDTO {
     @NotBlank(message = "Specify the name of the game")
     private String name;

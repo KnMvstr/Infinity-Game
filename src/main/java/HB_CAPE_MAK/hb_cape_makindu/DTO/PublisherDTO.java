@@ -20,6 +20,4 @@ public class PublisherDTO {
     @NotBlank(message = "Specify the publisher")
     private String name;
 
-    @JsonView(JsonViews.PublisherPrivateView.class)
-    private List<Game> games;
 }

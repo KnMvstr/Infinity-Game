@@ -19,7 +19,4 @@ public class PlatformDTO {
 
     @NotBlank(message = "Specify the platform")
     private String name;
-
-    @JsonView(JsonViews.PlatformPrivateView.class)
-    private List<Game> games;
 }

@@ -4,6 +4,7 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.NomenclatureInterface;
 import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.SluggerInterface;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,7 +35,7 @@ public class BusinessModel implements SluggerInterface,
 
     @OneToMany(mappedBy = "businessModel")
     @JsonView(JsonViews.BusinessModelPublicView.class)
-    @JsonBackReference
+    @JsonManagedReference
     private List<Game> games = new ArrayList<>();
 
     @Override

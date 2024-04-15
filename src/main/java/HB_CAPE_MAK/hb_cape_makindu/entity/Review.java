@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(JsonViews.ReviewPrivateView.class)
+    @JsonView(JsonViews.ReviewPublicView.class)
     private Long id;
 
     @NotNull

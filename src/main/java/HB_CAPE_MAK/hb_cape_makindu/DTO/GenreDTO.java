@@ -18,8 +18,4 @@ import java.util.List;
 public class GenreDTO {
     @NotBlank(message = "Specify the genre")
     private String name;
-
-    @JsonView(JsonViews.GenrePrivateView.class)
-    private List<Game> games;
-
 }

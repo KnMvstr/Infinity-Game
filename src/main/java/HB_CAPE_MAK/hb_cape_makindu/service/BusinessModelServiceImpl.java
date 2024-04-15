@@ -8,6 +8,7 @@ import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOEntityInterface;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,17 +39,30 @@ public class BusinessModelServiceImpl implements DAOEntityInterface<BusinessMode
                 .orElseThrow(EntityNotFoundException::new);
     }
 
+    public List<BusinessModel> findAllByFieldAndDirection(String field, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), field);
+        return businessModelRepository.findAll(sort);
+    }
+
     //Method to add record in Database
     public BusinessModel persist(BusinessModelDTO businessModelDTO, Long id) {
-        if (id != null && businessModelRepository.findById(id).isEmpty()) {
-            throw new NotFoundCapEntException(
-                    "BusinessModel", "id", id
-            );
-        }
-        BusinessModel brand = new BusinessModel();
-        brand.setName(businessModelDTO.getName());
+        BusinessModel businessModel;
+        if (id != null) {
+            // Attempt to find the existing platform by ID
+            businessModel = businessModelRepository.findById(id)
+                    .orElseThrow(() -> new NotFoundCapEntException("BusinessModel", "id", id));
 
-        return businessModelRepository.saveAndFlush(brand);
+            // Update the existing platform's fields
+            businessModel.setName(businessModelDTO.getName());
+            // Add any other fields from the DTO you wish to update
+        } else {
+            // If no ID is provided, create a new platform
+            businessModel = new BusinessModel();
+            businessModel.setName(businessModelDTO.getName());
+            // Initialize any other fields as necessary
+        }
+        // Save the updated platform or the new platform
+        return businessModelRepository.saveAndFlush(businessModel);
     }
 
     //Methode to delete a record

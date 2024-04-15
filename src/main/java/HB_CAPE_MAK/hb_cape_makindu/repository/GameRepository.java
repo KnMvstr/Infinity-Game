@@ -18,11 +18,14 @@ public interface GameRepository extends EntityNomenclatureRepository<Game>, JpaR
 
     List<Game> findAllByOrderByNameDesc();
 
-    Optional <Game> findByNameIsLikeIgnoreCase (String name);
+    Optional<Game> findByNameIsLikeIgnoreCase(String name);
 
     @Query("select g from Game g join Review r on g.id = r.game.id group by g.id order by count(r.game.id) desc limit 4")
     List<Game> findTop4ByOrderByCountReview();
 
-        Optional<Game> findBySlug(String slug);
+    Optional<Game> findBySlug(String slug);
 
+
+    @Query("SELECT g FROM Game g JOIN FETCH g.genre JOIN FETCH g.publisher")
+    List<Game> findAllWithDetails();
 }

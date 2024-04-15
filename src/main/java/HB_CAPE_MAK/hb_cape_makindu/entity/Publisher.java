@@ -4,8 +4,7 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.NomenclatureInterface;
 import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.SluggerInterface;
 
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,7 +29,7 @@ public class Publisher implements
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @JsonView(JsonViews.PublisherPublicView.class)
+    @JsonView(JsonViews.PublisherMinimalView.class)
     private String name;
 
     @JsonView(JsonViews.PublisherPublicView.class)
@@ -34,7 +37,6 @@ public class Publisher implements
 
     @OneToMany(mappedBy = "publisher")
     @JsonView(JsonViews.PublisherPublicView.class)
-    @JsonBackReference
     private List<Game> games = new ArrayList<>();
 
     @Override

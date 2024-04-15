@@ -1,8 +1,7 @@
 package HB_CAPE_MAK.hb_cape_makindu.controller;
 
-import HB_CAPE_MAK.hb_cape_makindu.DTO.BusinessModelDTO;
+
 import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
-import HB_CAPE_MAK.hb_cape_makindu.entity.BusinessModel;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import HB_CAPE_MAK.hb_cape_makindu.service.GenreServiceImpl;
@@ -23,11 +22,18 @@ public class GenreController {
     private GenreServiceImpl genreService;
 
     @GetMapping
-    @JsonView(JsonViews.GenrePublicView.class)
+    @JsonView(JsonViews.GenrePrivateView.class)
     List<Genre> getAllGenre() {
         return genreService.findAll();
     }
 
+    @GetMapping(path = "/sorted")
+    @JsonView(JsonViews.GenrePrivateView.class)
+    public List<Genre> getAllByFieldAndDirection(
+            @RequestParam String field,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return genreService.findAllByFieldAndDirection(field, direction);
+    }
     @GetMapping(path = "/asc")
     @JsonView(JsonViews.GenrePrivateView.class)
     List<Genre> getAllGenreSortedAsc() {
@@ -41,19 +47,20 @@ public class GenreController {
         return genreService.findById(id);
     }
 
-    @PostMapping
-    @JsonView(JsonViews.GenreMinimalView.class)
+    @PostMapping(path = "/create")
+    @JsonView(JsonViews.GenrePublicView.class)
     public Genre persist(@Valid @RequestBody GenreDTO genreDTO) {
         return genreService.persist(genreDTO, null);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/edit/{id}")
     @JsonView(JsonViews.GenrePrivateView.class)
-    public Genre persist (@Valid @RequestBody GenreDTO genreDTO, @PathVariable Long id){
-        return genreService.persist(genreDTO, id);
+    public ResponseEntity<Genre> updateGenre(@PathVariable Long id, @RequestBody GenreDTO genreDTO) {
+        Genre genreUpdated = genreService.persist(genreDTO, id);
+        return new ResponseEntity<>(genreUpdated, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         genreService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

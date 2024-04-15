@@ -1,7 +1,9 @@
 package HB_CAPE_MAK.hb_cape_makindu.controller;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.ClassificationDTO;
+import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Classification;
+import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import HB_CAPE_MAK.hb_cape_makindu.service.ClassificationServiceImpl;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -21,11 +23,18 @@ public class ClassificationController {
     private ClassificationServiceImpl classificationService;
 
     @GetMapping
-    @JsonView(JsonViews.ClassificationPublicView.class)
+    @JsonView(JsonViews.ClassificationFullView.class)
     List<Classification> getAllClassification() {
         return classificationService.findAll();
     }
 
+    @GetMapping(path = "/sorted")
+    @JsonView(JsonViews.ClassificationFullView.class)
+    public List<Classification> getAllByFieldAndDirection(
+            @RequestParam String field,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return classificationService.findAllByFieldAndDirection(field, direction);
+    }
     @GetMapping(path = "/asc")
     @JsonView(JsonViews.ClassificationPrivateView.class)
     List<Classification> getAllClassificationSortedAsc() {
@@ -38,17 +47,20 @@ public class ClassificationController {
         return classificationService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
+    @JsonView(JsonViews.ClassificationPrivateView.class)
     public Classification persist(@Valid @RequestBody ClassificationDTO classificationDTO) {
         return classificationService.persist(classificationDTO, null);
     }
 
-    @PutMapping("/{id}")
-    public Classification persist (@Valid @RequestBody ClassificationDTO classificationDTO, @PathVariable Long id){
-        return classificationService.persist(classificationDTO, id);
+    @PutMapping(path = "/edit/{id}")
+    @JsonView(JsonViews.ClassificationPrivateView.class)
+    public ResponseEntity<Classification> updateClassification(@PathVariable Long id, @RequestBody ClassificationDTO classificationDTO) {
+        Classification classificationUpdated = classificationService.persist(classificationDTO, id);
+        return new ResponseEntity<>(classificationUpdated, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         classificationService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

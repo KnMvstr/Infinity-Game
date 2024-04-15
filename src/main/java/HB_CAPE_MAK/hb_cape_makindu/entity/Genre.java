@@ -2,10 +2,10 @@ package HB_CAPE_MAK.hb_cape_makindu.entity;
 
 import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.NomenclatureInterface;
 import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.SluggerInterface;
-
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+//Enable serialization of bidirectional relationships
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,7 +38,6 @@ public class Genre implements SluggerInterface,
 
     @OneToMany(mappedBy = "genre")
     @JsonView(JsonViews.GenrePublicView.class)
-    @JsonBackReference
     private List<Game> games = new ArrayList<>();
 
     @Override

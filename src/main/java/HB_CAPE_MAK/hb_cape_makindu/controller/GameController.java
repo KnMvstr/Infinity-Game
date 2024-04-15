@@ -1,7 +1,9 @@
 package HB_CAPE_MAK.hb_cape_makindu.controller;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.GameDTO;
+import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
+import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import HB_CAPE_MAK.hb_cape_makindu.service.GameServiceImpl;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -22,9 +24,17 @@ public class GameController {
     private GameServiceImpl gameService;
 
     @GetMapping
-    @JsonView(JsonViews.GamePublicView.class)
+    @JsonView(JsonViews.GamePrivateView.class)
     List<Game> getAllGames() {
         return gameService.findAll();
+    }
+
+    @GetMapping(path = "/sorted")
+    @JsonView(JsonViews.GamePrivateView.class)
+    public List<Game> getAllByFieldAndDirection(
+            @RequestParam String field,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return gameService.findAllByFieldAndDirection(field, direction);
     }
 
     @GetMapping(path = "/asc")
@@ -39,17 +49,19 @@ public class GameController {
         return gameService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
+    @JsonView(JsonViews.GamePublicView.class)
     public Game persist(@Valid @RequestBody GameDTO gameDTO) {
         return gameService.persist(gameDTO, null);
     }
-
-    @PutMapping("/{id}")
-    public Game persist (@Valid @RequestBody GameDTO gameDTO, @PathVariable Long id){
-        return gameService.persist(gameDTO, id);
+    @PutMapping(path = "/edit/{id}")
+    @JsonView(JsonViews.GamePrivateView.class)
+    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody GameDTO gameDTO) {
+        Game gameUpdated = gameService.persist(gameDTO, id);
+        return new ResponseEntity<>(gameUpdated, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         gameService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
