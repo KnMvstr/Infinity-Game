@@ -66,4 +66,5 @@ public class PlatformServiceImpl implements DAOEntityInterface<Platform> {
     public void delete(Long id) {
         platformRepository.deleteById(id);
     }
+
 }

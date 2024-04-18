@@ -40,8 +40,6 @@ public abstract class User  implements UserDetails {
     @JsonView(JsonViews.UserPrivateView.class)
     protected String pwd;
 
-
-
 //Authorities method setted to be processed by AngularApp
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

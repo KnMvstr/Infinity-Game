@@ -2,6 +2,7 @@ package HB_CAPE_MAK.hb_cape_makindu.controller;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPostDTO;
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPutDTO;
+import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import HB_CAPE_MAK.hb_cape_makindu.service.UserServiceImpl;
@@ -42,6 +43,13 @@ public class UserController {
         return new ResponseEntity<User>(userPseudo, HttpStatus.OK);
     }
 
+    // Use in Angular nav search bar
+    @GetMapping("/search")
+    public ResponseEntity<List<User>> searchUser(@RequestParam String query) {
+        List<User> users = userService.search(query);
+        return ResponseEntity.ok(users);
+    }
+
     //Get all Users
     @GetMapping
     @JsonView(JsonViews.UserPrivateView.class)
@@ -63,6 +71,14 @@ public class UserController {
     @JsonView(JsonViews.ModeratorPrivateView.class)
     public ResponseEntity<List<User>> getAllModerators() {
         List<User> usersList = userService.getAllModerators();
+        return new ResponseEntity<List<User>>(usersList, HttpStatus.OK);
+    }
+
+    //Get all SuperAdmin
+    @GetMapping (path = "/{superadmin}")
+    @JsonView(JsonViews.ModeratorPrivateView.class)
+    public ResponseEntity<List<User>> getAllSuperAdmin() {
+        List<User> usersList = userService.getAllSuperAdmins();
         return new ResponseEntity<List<User>>(usersList, HttpStatus.OK);
     }
 

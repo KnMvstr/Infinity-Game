@@ -5,6 +5,7 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.Publisher;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.PublisherRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOEntityInterface;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOSearchInterface;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class PublisherServiceImpl implements DAOEntityInterface<Publisher> {
+public class PublisherServiceImpl implements DAOEntityInterface<Publisher>, DAOSearchInterface<Publisher> {
     @Autowired
     private final PublisherRepository publisherRepository;
 
@@ -34,6 +35,12 @@ public class PublisherServiceImpl implements DAOEntityInterface<Publisher> {
         return publisherRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
+    @Override
+    public List<Publisher> search(String query) {
+        return publisherRepository.findByPublisherContainingIgnoreCase(query);
+    }
+
     public List<Publisher> findAllByFieldAndDirection(String field, String direction) {
         Sort sort = Sort.by(Sort.Direction.fromString(direction), field);
         return publisherRepository.findAll(sort);
@@ -66,6 +73,7 @@ public class PublisherServiceImpl implements DAOEntityInterface<Publisher> {
     public void delete(Long id) {
         publisherRepository.deleteById(id);
     }
-    
+
+
 }
 

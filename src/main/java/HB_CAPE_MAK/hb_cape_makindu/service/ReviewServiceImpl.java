@@ -27,6 +27,11 @@ public class ReviewServiceImpl {
         return (List<Review>) reviewRepository.findAllByGame(game);
     }
 
+    public List<Review> findAllByGame(Long gameId) {
+        return reviewRepository.findByGameId(gameId); // Assuming your repository can query by gameId
+    }
+
+
     public boolean findModeratedReview(String pseudo, Long id, Long moderate) {
         Review review = findById(id);
         boolean isModerate = true;

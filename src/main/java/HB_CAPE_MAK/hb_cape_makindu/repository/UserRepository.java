@@ -20,5 +20,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE TYPE(u) != Gamer")
     List<User> findAllExceptGamers();
+
+    @Query("SELECT u FROM User u WHERE TYPE(u) != Gamer AND TYPE(u) != Moderator")
+    List<User> findAllExceptGamersAndModerators();
+
+    @Query("SELECT u FROM User u WHERE LOWER(u.pseudo) LIKE LOWER(CONCAT('%', :pseudo, '%'))")
+    List<User> findByUserContainingIgnoreCase(String pseudo);
 }
 

@@ -8,6 +8,7 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.GameRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOEntityInterface;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOSearchInterface;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -25,7 +26,7 @@ import java.util.List;
 @Service
 @Transactional
 @AllArgsConstructor
-public class GameServiceImpl implements DAOEntityInterface<Game> {
+public class GameServiceImpl implements DAOEntityInterface<Game>, DAOSearchInterface<Game> {
     @Autowired
     private GameRepository gameRepository;
 
@@ -38,6 +39,10 @@ public class GameServiceImpl implements DAOEntityInterface<Game> {
     @Override
     public List<Game> findAllSorted() { return gameRepository.findAllByOrderByNameAsc();}
 
+    @Override
+    public List<Game> search(String query) {
+        return gameRepository.findByGameContainingIgnoreCase(query);
+    }
 
     //Method to find by Id
     public Game findById(Long id) {

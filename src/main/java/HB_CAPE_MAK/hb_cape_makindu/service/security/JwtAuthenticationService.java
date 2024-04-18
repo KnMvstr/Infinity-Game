@@ -43,7 +43,7 @@ public class JwtAuthenticationService {
             user.getAuthorities().forEach(System.out::println);
 
             String token = jwtTokenUtil.generateAccessToken(user.getUsername());
-            return ResponseEntity.ok(new JwtTokenResponse());
+            return ResponseEntity.ok(new JwtTokenResponse(token));
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

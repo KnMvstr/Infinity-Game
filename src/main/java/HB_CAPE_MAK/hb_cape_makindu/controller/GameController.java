@@ -28,6 +28,13 @@ public class GameController {
     List<Game> getAllGames() {
         return gameService.findAll();
     }
+// Use in Angular nav search bar
+    @GetMapping("/search")
+    public ResponseEntity<List<Game>> searchGames(@RequestParam String query) {
+        List<Game> games = gameService.search(query);
+        return ResponseEntity.ok(games);
+    }
+
 
     @GetMapping(path = "/sorted")
     @JsonView(JsonViews.GamePrivateView.class)

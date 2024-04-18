@@ -5,10 +5,12 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPostDTO;
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPutDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Gamer;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Moderator;
+import HB_CAPE_MAK.hb_cape_makindu.entity.SuperAdmin;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.repository.UserRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOFindByEmailInterface;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOFindByIdInterface;
+import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOSearchInterface;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
+
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEmailInterface, UserDetailsService {
+public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEmailInterface, UserDetailsService, DAOSearchInterface {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -35,6 +39,9 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
         if ("GAMER".equalsIgnoreCase(userDTO.getUserType())) {
             user = new Gamer();
             // Initialisez spécifiquement un Gamer si nécessaire
+        } else if ("SUPERADMIN".equalsIgnoreCase(userDTO.getUserType())) {
+            user = new SuperAdmin();
+            // Initialisez spécifiquement un Moderator si nécessaire
         } else if ("MODERATOR".equalsIgnoreCase(userDTO.getUserType())) {
             user = new Moderator();
             // Initialisez spécifiquement un Moderator si nécessaire
@@ -52,13 +59,20 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     public List<User> getAll() {
         return userRepository.findAll();
     }
+
     // function that retrieve all Gamers from database
-    public List<User> getAllGamers () {
+    public List<User> getAllGamers() {
         return userRepository.findAllExceptModerators();
     }
+
     // function that retrieve all Moderators from database
     public List<User> getAllModerators() {
         return userRepository.findAllExceptGamers();
+    }
+
+    // function that retrieve all Moderators from database
+    public List<User> getAllSuperAdmins() {
+        return userRepository.findAllExceptGamersAndModerators();
     }
 
     // function that update an existing user in database
@@ -88,11 +102,13 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
         return userRepository.findByPseudo(pseudo)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
     @Override
     public User findById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
     @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
@@ -108,10 +124,20 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
                 userGrantedAuthority(user)
         );
     }
+
+    @Override
+    public List<User> search(String query) {
+        return userRepository.findByUserContainingIgnoreCase(query);
+    }
+
     private List<GrantedAuthority> userGrantedAuthority(User user) {
         if (user instanceof Moderator) {
             return List.of(new SimpleGrantedAuthority("ROLE_MODERATOR"));
+        } else if (user instanceof SuperAdmin) {
+            return List.of(new SimpleGrantedAuthority("ROLE_SUPERADMIN"));
         }
         return List.of(new SimpleGrantedAuthority("ROLE_GAMER"));
     }
+
+
 }

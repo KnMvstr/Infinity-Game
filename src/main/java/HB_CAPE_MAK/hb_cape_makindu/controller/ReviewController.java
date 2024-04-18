@@ -1,9 +1,7 @@
 package HB_CAPE_MAK.hb_cape_makindu.controller;
 
-import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
 import HB_CAPE_MAK.hb_cape_makindu.DTO.ReviewDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Review;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import HB_CAPE_MAK.hb_cape_makindu.service.ReviewServiceImpl;
@@ -55,12 +53,15 @@ public class ReviewController {
         return reviewService.findModeratedReview(pseudo, id, moderate);
     }
 
-    @GetMapping(path = "/by_game")
+    @GetMapping(path = "/by_game/{gameId}")
     @JsonView(JsonViews.ReviewPrivateView.class)
-    List<Review> getAllReviewByGame(@PathVariable Game game) {
-        return reviewService.findAllByGame(game);
+    public ResponseEntity<List<Review>> getAllReviewByGame(@PathVariable Game gameId) {
+        List<Review> reviews = reviewService.findAllByGame(gameId);
+        if (reviews.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
-
     @PostMapping
     @JsonView(JsonViews.ReviewMinimalView.class)
     public Review persist(@Valid @RequestBody ReviewDTO reviewDTO) {

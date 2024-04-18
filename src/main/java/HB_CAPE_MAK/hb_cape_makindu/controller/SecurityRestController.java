@@ -5,29 +5,35 @@ import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPostDTO;
 import HB_CAPE_MAK.hb_cape_makindu.custom_response.JwtTokenResponse;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.service.security.JwtAuthenticationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
-@AllArgsConstructor
+@RequestMapping("/auth")
+@Tag(name = "Authentication")
 public class SecurityRestController {
 
-    private UserServiceImpl userService;
-    private JwtAuthenticationService jwtAuthenticationService;
+    private final UserServiceImpl userService;
+    private final JwtAuthenticationService jwtAuthenticationService;
 
-    @PostMapping("/register")
-    public User create(@RequestBody @Valid UserPostDTO userDTO) {
-        return userService.create(userDTO);
+    // Explicit constructor for clarity
+    public SecurityRestController(UserServiceImpl userService, JwtAuthenticationService jwtAuthenticationService) {
+        this.userService = userService;
+        this.jwtAuthenticationService = jwtAuthenticationService;
     }
 
     @PostMapping("/login")
-    ResponseEntity<JwtTokenResponse> create(@Valid @RequestBody UserLoginDTO userLoginDTO) {
+    public ResponseEntity<JwtTokenResponse> login(@Valid @RequestBody UserLoginDTO userLoginDTO) {
         return jwtAuthenticationService.authenticate(userLoginDTO);
+    }
+
+    @PostMapping("/register")
+    public User register(@RequestBody @Valid UserPostDTO userDTO) {
+        return userService.create(userDTO);
     }
 }

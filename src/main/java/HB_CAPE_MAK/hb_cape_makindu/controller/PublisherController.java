@@ -31,6 +31,11 @@ public class PublisherController {
         return publisherService.findAll();
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Publisher>> searchPublisher(@RequestParam String query) {
+        List<Publisher> publishers = publisherService.search(query);
+        return ResponseEntity.ok(publishers);
+    }
     @GetMapping(path = "/sorted")
     @JsonView(JsonViews.PublisherPrivateView.class)
     public List<Publisher> getAllByFieldAndDirection(

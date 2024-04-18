@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface DAOEntityInterface<T> extends
         DAOFindByIdInterface<T>,
-        DAOFindAllInterface<T> {
+        DAOFindAllInterface<T>{
 
 
 }

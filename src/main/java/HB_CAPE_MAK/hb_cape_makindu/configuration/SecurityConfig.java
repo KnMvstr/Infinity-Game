@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Component;
 @EnableWebSecurity
 @AllArgsConstructor
 @EnableMethodSecurity(securedEnabled = true)
-public class SecurityConfig {
+public class SecurityConfig  {
     private BCryptPasswordEncoder passwordEncoder;
 
     private UserDetailsService userDetailsService;
@@ -51,13 +52,14 @@ public class SecurityConfig {
                                         .requestMatchers("/api/publisher/**").permitAll()
                                         .requestMatchers("/api/platform/**").permitAll()
                                         .requestMatchers("/api/review/**").permitAll()
+                                        .requestMatchers("auth/**").permitAll()
 
-                                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-                                        .requestMatchers(HttpMethod.POST, "/api/**").permitAll()
-                                        .requestMatchers(HttpMethod.PUT, "/api/**").permitAll()
-                                        .requestMatchers(HttpMethod.DELETE, "/api/**").permitAll()
+//                                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+//                                        .requestMatchers(HttpMethod.POST, "/api/**").permitAll()
+//                                        .requestMatchers(HttpMethod.PUT, "/api/**").permitAll()
+//                                        .requestMatchers(HttpMethod.DELETE, "/api/**").permitAll()
 
-                        //        .requestMatchers(HttpMethod.GET, "/api/user").hasAuthority("ROLE_MODERATOR")
+                        //        .requestMatchers(HttpMethod.GET, "/api/user").permitAll()
                         //        .requestMatchers(HttpMethod.GET, "/api/business").permitAll()
                         //        .requestMatchers(HttpMethod.GET, "/api/genre").permitAll()
                         //        .requestMatchers(HttpMethod.GET, "/api/classification").permitAll()
@@ -90,7 +92,7 @@ public class SecurityConfig {
                         //        .requestMatchers(HttpMethod.DELETE, "/api/classification").hasAuthority("ROLE_MODERATOR")
                         //        .requestMatchers(HttpMethod.DELETE, "/api/game").hasAuthority("ROLE_MODERATOR")
                         //        .requestMatchers(HttpMethod.DELETE, "/api/publisher").hasAuthority("ROLE_MODERATOR")
-                        //        .requestMatchers(HttpMethod.DELETE, "/api/platform").hasAuthority("ROLE_MODERATOR")
+                        //        .requestMatchers(HttpMethod.DELETE, "/api/platform").hasAuthority("ROLE_SUPER ADMIN")
                         //      .requestMatchers(HttpMethod.DELETE, "/api/review").hasAuthority("ROLE_MODERATOR")
                 )
         ;
