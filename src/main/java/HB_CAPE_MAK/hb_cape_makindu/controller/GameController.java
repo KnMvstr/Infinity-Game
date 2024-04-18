@@ -1,9 +1,7 @@
 package HB_CAPE_MAK.hb_cape_makindu.controller;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.GameDTO;
-import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import HB_CAPE_MAK.hb_cape_makindu.service.GameServiceImpl;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -25,9 +23,11 @@ public class GameController {
 
     @GetMapping
     @JsonView(JsonViews.GamePrivateView.class)
-    List<Game> getAllGames() {
-        return gameService.findAll();
+    public ResponseEntity<List<Game>>findAllGamesWithDetails(){
+    List<Game> games= gameService.findAllGamesWithDetails();
+        return ResponseEntity.ok(games);
     }
+
 // Use in Angular nav search bar
     @GetMapping("/search")
     public ResponseEntity<List<Game>> searchGames(@RequestParam String query) {

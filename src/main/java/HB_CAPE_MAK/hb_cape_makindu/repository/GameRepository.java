@@ -4,6 +4,7 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.BusinessModel;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.repository.interfaces.EntityNomenclatureRepository;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -26,7 +27,7 @@ public interface GameRepository extends EntityNomenclatureRepository<Game>, JpaR
 
     Optional<Game> findBySlug(String slug);
 
-
-    @Query("SELECT g FROM Game g JOIN FETCH g.genre JOIN FETCH g.publisher")
+    @EntityGraph(attributePaths = {"publisher", "platforms", "classification", "genre"})
+    @Query("SELECT g FROM Game g LEFT JOIN FETCH g.publisher LEFT JOIN FETCH g.genre  LEFT JOIN FETCH g.platforms  LEFT JOIN FETCH g.classification")
     List<Game> findAllWithDetails();
 }

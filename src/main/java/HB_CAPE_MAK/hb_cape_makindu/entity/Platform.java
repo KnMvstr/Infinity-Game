@@ -14,7 +14,7 @@ import java.util.List;
 //Enable serialization of bidirectional relationships
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
+        property = "name"
 )
 @Getter
 @Setter

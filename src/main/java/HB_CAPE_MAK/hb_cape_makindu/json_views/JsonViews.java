@@ -36,12 +36,12 @@ public class JsonViews {
 
     //    PLATFORM VIEW
     public interface PlatformMinimalView {}
-    public interface PlatformPublicView extends GamePrivateView, PlatformMinimalView {}
+    public interface PlatformPublicView extends GamePublicView, PlatformMinimalView {}
     public interface PlatformPrivateView extends PlatformPublicView  {}
 
     //    PUBLISHER VIEW
     public interface PublisherMinimalView {}
-    public interface PublisherPublicView extends GamePrivateView, PublisherMinimalView {}
+    public interface PublisherPublicView extends GamePublicView, PublisherMinimalView {}
     public interface PublisherPrivateView extends PublisherPublicView {}
 
     //    REVIEW VIEW

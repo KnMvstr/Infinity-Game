@@ -53,7 +53,7 @@ public class Game implements SluggerInterface,
     @JsonView(JsonViews.GamePublicView.class)
     private String trailer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "genre_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
     private Genre genre;
@@ -61,23 +61,23 @@ public class Game implements SluggerInterface,
     @JsonView(JsonViews.GamePrivateView.class)
     private String slug;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "publisher_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
     private Publisher publisher;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "business_Model_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
     @JsonBackReference
     private BusinessModel businessModel;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
     @JsonView(JsonViews.GamePrivateView.class)
     private Moderator moderator;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "game_platform",
             joinColumns = @JoinColumn(name = "game_id"),
@@ -86,7 +86,7 @@ public class Game implements SluggerInterface,
     @JsonView(JsonViews.GamePublicView.class)
     private List<Platform> platforms = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "classification_id")
     @JsonView(JsonViews.GamePublicView.class)
     private Classification classification;

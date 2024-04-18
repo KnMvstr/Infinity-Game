@@ -54,10 +54,10 @@ public class SecurityConfig  {
                                         .requestMatchers("/api/review/**").permitAll()
                                         .requestMatchers("auth/**").permitAll()
 
-//                                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-//                                        .requestMatchers(HttpMethod.POST, "/api/**").permitAll()
-//                                        .requestMatchers(HttpMethod.PUT, "/api/**").permitAll()
-//                                        .requestMatchers(HttpMethod.DELETE, "/api/**").permitAll()
+                                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                                        .requestMatchers(HttpMethod.POST, "/api/**").permitAll()
+                                        .requestMatchers(HttpMethod.PUT, "/api/**").permitAll()
+                                        .requestMatchers(HttpMethod.DELETE, "/api/**").permitAll()
 
                         //        .requestMatchers(HttpMethod.GET, "/api/user").permitAll()
                         //        .requestMatchers(HttpMethod.GET, "/api/business").permitAll()

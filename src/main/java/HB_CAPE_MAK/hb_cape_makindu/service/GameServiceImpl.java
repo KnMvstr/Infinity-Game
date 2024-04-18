@@ -3,13 +3,17 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.GameDTO;
 import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
+import HB_CAPE_MAK.hb_cape_makindu.DTO.PublisherDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
+import HB_CAPE_MAK.hb_cape_makindu.entity.Publisher;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.GameRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOEntityInterface;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOSearchInterface;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -22,11 +26,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @AllArgsConstructor
 public class GameServiceImpl implements DAOEntityInterface<Game>, DAOSearchInterface<Game> {
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Autowired
     private GameRepository gameRepository;
 
@@ -90,5 +98,19 @@ public class GameServiceImpl implements DAOEntityInterface<Game>, DAOSearchInter
     public void delete(Long id) {
         gameRepository.deleteById(id);
     }
+
+    public List<Game> findAllGamesWithDetails() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Game> query = cb.createQuery(Game.class);
+        Root<Game> game = query.from(Game.class);
+        game.fetch("publisher", JoinType.LEFT); // Assure-toi que ces entités sont correctement jointes
+        game.fetch("genre", JoinType.LEFT);
+        game.fetch("platforms", JoinType.LEFT);
+        game.fetch("classification", JoinType.LEFT);
+        query.select(game).distinct(true);
+
+        return entityManager.createQuery(query).getResultList();
+    }
+
 
 }
