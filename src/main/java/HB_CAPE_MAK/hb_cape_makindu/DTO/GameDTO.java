@@ -1,7 +1,6 @@
 package HB_CAPE_MAK.hb_cape_makindu.DTO;
 
 import HB_CAPE_MAK.hb_cape_makindu.entity.*;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,10 +35,10 @@ public class GameDTO {
     private String trailer;
 
 
-    private Genre genre;
+    private GenreDTO genre;
 
 
-    private Publisher publisher;
+    private PublisherDTO publisher;
 
 
     private BusinessModelDTO businessModel;
@@ -47,9 +47,11 @@ public class GameDTO {
     private Moderator moderator;
 
 
-    private List<Platform> platforms;
+    private List<PlatformDTO> platforms;
 
 
-    private Classification classification;
+    private ClassificationDTO classification;
 
 }
+
+

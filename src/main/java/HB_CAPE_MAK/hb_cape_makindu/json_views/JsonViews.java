@@ -27,11 +27,11 @@ public class JsonViews {
     public interface ClassificationMinimalView {}
     public interface ClassificationPublicView extends ClassificationMinimalView{}
     public interface ClassificationPrivateView extends ClassificationPublicView {}
-    public interface ClassificationFullView extends ClassificationPrivateView, GamePublicView  {}
+    public interface ClassificationFullView extends ClassificationPrivateView, GameMinimalView {}
 
     //    GENRE VIEW
     public interface GenreMinimalView {}
-    public interface GenrePublicView extends GamePrivateView, GenreMinimalView {}
+    public interface GenrePublicView extends GameMinimalView, GenreMinimalView {}
     public interface GenrePrivateView extends GenrePublicView {}
 
     //    PLATFORM VIEW

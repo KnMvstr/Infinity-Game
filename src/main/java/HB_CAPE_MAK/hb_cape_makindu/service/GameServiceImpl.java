@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 @Transactional
 @AllArgsConstructor
 public class GameServiceImpl implements DAOEntityInterface<Game>, DAOSearchInterface<Game> {
+
     @PersistenceContext
     private EntityManager entityManager;
 

@@ -3,6 +3,7 @@ package HB_CAPE_MAK.hb_cape_makindu.entity;
 import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.NomenclatureInterface;
 import HB_CAPE_MAK.hb_cape_makindu.entity.interfaces.SluggerInterface;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -36,7 +37,7 @@ public class Genre implements SluggerInterface,
     @JsonView(JsonViews.GenrePublicView.class)
     private String slug;
 
-    @OneToMany(mappedBy = "genre")
+    @OneToMany(mappedBy = "genre", fetch = FetchType.EAGER)
     @JsonView(JsonViews.GenrePublicView.class)
     private List<Game> games = new ArrayList<>();
 

@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.List;
 @Entity
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
+        property = "name"
 )
 @Getter
 @Setter
@@ -56,6 +58,7 @@ public class Game implements SluggerInterface,
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "genre_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
+    @JsonManagedReference
     private Genre genre;
 
     @JsonView(JsonViews.GamePrivateView.class)
@@ -67,7 +70,7 @@ public class Game implements SluggerInterface,
     private Publisher publisher;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "business_Model_id", nullable = false)
+    @JoinColumn(name = "business_model_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
     @JsonBackReference
     private BusinessModel businessModel;
