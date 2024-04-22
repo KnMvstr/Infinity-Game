@@ -46,6 +46,8 @@ public abstract class User  implements UserDetails {
         List<GrantedAuthority> authorities = new ArrayList<>();
         if (this instanceof Moderator) {
             authorities.add(new SimpleGrantedAuthority("ROLE_MODERATOR"));
+        } else if (this instanceof SuperAdmin) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_SUPERADMIN"));
         }
         if (this instanceof Gamer) {
             authorities.add(new SimpleGrantedAuthority("ROLE_GAMER"));

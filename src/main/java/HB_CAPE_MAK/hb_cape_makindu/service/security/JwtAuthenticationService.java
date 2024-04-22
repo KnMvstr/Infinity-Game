@@ -42,11 +42,10 @@ public class JwtAuthenticationService {
             System.out.println(user.getPassword());
             user.getAuthorities().forEach(System.out::println);
 
-            String token = jwtTokenUtil.generateAccessToken(user.getUsername());
+            String token = jwtTokenUtil.generateAccessToken(user.getUsername(), user.getAuthorities().toString());
             return ResponseEntity.ok(new JwtTokenResponse(token));
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-
 }

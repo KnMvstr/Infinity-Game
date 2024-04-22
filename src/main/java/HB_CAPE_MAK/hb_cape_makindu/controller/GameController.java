@@ -5,7 +5,6 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import HB_CAPE_MAK.hb_cape_makindu.service.GameServiceImpl;
 import com.fasterxml.jackson.annotation.JsonView;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +61,7 @@ public class GameController {
     public Game persist(@Validated @RequestBody GameDTO gameDTO) {
         return gameService.persist(gameDTO, null);
     }
+
     @PutMapping(path = "/edit/{id}")
     @JsonView(JsonViews.GamePrivateView.class)
     public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody GameDTO gameDTO) {
@@ -74,6 +74,4 @@ public class GameController {
         gameService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 }

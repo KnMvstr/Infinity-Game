@@ -35,22 +35,18 @@ public class GameDTO {
     private String trailer;
 
 
-    private GenreDTO genre;
+    private Genre genre;
 
 
-    private PublisherDTO publisher;
+    private Publisher publisher;
 
 
-    private BusinessModelDTO businessModel;
+    private BusinessModel businessModel;
+
+    private List<Platform> platforms;
 
 
-    private Moderator moderator;
-
-
-    private List<PlatformDTO> platforms;
-
-
-    private ClassificationDTO classification;
+    private Classification classification;
 
 }
 

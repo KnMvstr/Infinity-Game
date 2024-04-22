@@ -142,7 +142,6 @@ public class InitDataLoaderConfig implements CommandLineRunner {
                 LocalDate localDate = new java.sql.Date(faker.date().birthday(2, 25).getTime()).toLocalDate();
                 game.setReleaseDate(localDate);
                 Random rand = new Random();
-                game.setModerator((Moderator) userService.findById(rand.nextLong(5 - 1) + 1));
                 game.setBusinessModel(businessModelService.findById(businessModels.get(i)));
                 game.setClassification(classificationService.findById(rand.nextLong(3 - 1) + 1));
                 game.setPublisher(publisherService.findById(publishers.get(i)));

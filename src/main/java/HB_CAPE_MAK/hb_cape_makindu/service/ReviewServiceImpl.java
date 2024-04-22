@@ -1,14 +1,11 @@
 package HB_CAPE_MAK.hb_cape_makindu.service;
 
-import HB_CAPE_MAK.hb_cape_makindu.DTO.BusinessModelDTO;
 import HB_CAPE_MAK.hb_cape_makindu.DTO.ReviewDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.*;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.ReviewRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -61,14 +58,14 @@ public List<Review> findAllByFieldAndDirection(String field, String direction) {
 
     public Review findById(Long id) {
         return reviewRepository.findById(id)
-                .orElseThrow(() -> new NotFoundCapEntException("Review", "id", id));
+                .orElseThrow(() -> new NotFoundCapEntException("Review", "id", id, "No game found with ID: " + id));
     }
 
     public Review persist(ReviewDTO reviewDTO, Long id) {
         if (id != null && reviewRepository.findById(id).isEmpty()) {
             throw new NotFoundCapEntException(
-                    "Review", "id", id
-            );
+                    "Review", "id", id,
+                    "No game found with ID: " + id);
         }
         Review review = new Review();
         review.setDescription(reviewDTO.getDescription());

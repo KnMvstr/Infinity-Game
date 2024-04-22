@@ -52,7 +52,7 @@ public class PublisherServiceImpl implements DAOEntityInterface<Publisher>, DAOS
         if (id != null) {
             // Attempt to find the existing publisher by ID
             publisher = publisherRepository.findById(id)
-                    .orElseThrow(() -> new NotFoundCapEntException("Publisher", "id", id));
+                    .orElseThrow(() -> new NotFoundCapEntException("Publisher", "id", id, "No game found with ID: " + id));
 
             // Update the existing publisher's fields
             publisher.setName(publisherDTO.getName());

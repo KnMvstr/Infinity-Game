@@ -50,7 +50,7 @@ public class BusinessModelServiceImpl implements DAOEntityInterface<BusinessMode
         if (id != null) {
             // Attempt to find the existing platform by ID
             businessModel = businessModelRepository.findById(id)
-                    .orElseThrow(() -> new NotFoundCapEntException("BusinessModel", "id", id));
+                    .orElseThrow(() -> new NotFoundCapEntException("BusinessModel", "id", id, "No game found with ID: " + id));
 
             // Update the existing platform's fields
             businessModel.setName(businessModelDTO.getName());

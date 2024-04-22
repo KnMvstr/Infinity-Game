@@ -1,9 +1,7 @@
 package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.ClassificationDTO;
-import HB_CAPE_MAK.hb_cape_makindu.DTO.GenreDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Classification;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Genre;
 import HB_CAPE_MAK.hb_cape_makindu.exception.NotFoundCapEntException;
 import HB_CAPE_MAK.hb_cape_makindu.repository.ClassificationRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOEntityInterface;
@@ -50,7 +48,7 @@ public class ClassificationServiceImpl implements DAOEntityInterface<Classificat
         if (id != null) {
             // Attempt to find the existing platform by ID
             classification = classificationRepository.findById(id)
-                    .orElseThrow(() -> new NotFoundCapEntException("Classification", "id", id));
+                    .orElseThrow(() -> new NotFoundCapEntException("Classification", "id", id, "No game found with ID: " + id));
             // Update the existing platform's fields
             classification.setName(classificationDTO.getName());
             classification.setDescription(classificationDTO.getDescription());

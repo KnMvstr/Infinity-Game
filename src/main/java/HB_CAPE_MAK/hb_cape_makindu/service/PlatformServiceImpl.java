@@ -47,7 +47,7 @@ public class PlatformServiceImpl implements DAOEntityInterface<Platform> {
         if (id != null) {
             // Attempt to find the existing platform by ID
             platform = platformRepository.findById(id)
-                    .orElseThrow(() -> new NotFoundCapEntException("Platform", "id", id));
+                    .orElseThrow(() -> new NotFoundCapEntException("Platform", "id", id, "No game found with ID: " + id));
 
             // Update the existing platform's fields
             platform.setName(platformDTO.getName());

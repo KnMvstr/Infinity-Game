@@ -11,9 +11,10 @@ import static java.lang.String.format;
 public class JwtTokenUtil {
     private final String jwtSecret = "Le Loup est dans Bergerie";
 
-    public String generateAccessToken(String username) {
+    public String generateAccessToken(String username, String authorities) {
         return Jwts.builder()
                 .setSubject(format("%s", username))
+                .claim("role",authorities) // Add a custom claim with the key "role"
                 .setIssuer("InfinityGaming")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 2 * 60 * 60 * 1000)) // 2h
@@ -35,6 +36,4 @@ public class JwtTokenUtil {
         }
         return false;
     }
-
-
 }

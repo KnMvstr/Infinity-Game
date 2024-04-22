@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +26,7 @@ public class Game implements SluggerInterface,
         NomenclatureInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @JsonView(JsonViews.GamePublicView.class)
     private Long id;
 
@@ -58,7 +58,6 @@ public class Game implements SluggerInterface,
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "genre_id", nullable = false)
     @JsonView(JsonViews.GamePublicView.class)
-    @JsonManagedReference
     private Genre genre;
 
     @JsonView(JsonViews.GamePrivateView.class)
@@ -75,10 +74,7 @@ public class Game implements SluggerInterface,
     @JsonBackReference
     private BusinessModel businessModel;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false)
-    @JsonView(JsonViews.GamePrivateView.class)
-    private Moderator moderator;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
