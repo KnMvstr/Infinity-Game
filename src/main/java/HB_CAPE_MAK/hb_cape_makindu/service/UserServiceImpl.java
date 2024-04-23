@@ -3,10 +3,7 @@ package HB_CAPE_MAK.hb_cape_makindu.service;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPostDTO;
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPutDTO;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Gamer;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Moderator;
-import HB_CAPE_MAK.hb_cape_makindu.entity.SuperAdmin;
-import HB_CAPE_MAK.hb_cape_makindu.entity.User;
+import HB_CAPE_MAK.hb_cape_makindu.entity.*;
 import HB_CAPE_MAK.hb_cape_makindu.repository.UserRepository;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOFindByEmailInterface;
 import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOFindByIdInterface;
@@ -14,6 +11,7 @@ import HB_CAPE_MAK.hb_cape_makindu.service.interfaces.DAOSearchInterface;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -139,5 +137,9 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
         return List.of(new SimpleGrantedAuthority("ROLE_GAMER"));
     }
 
+    public List<User> findAllByFieldAndDirection(String field, String direction) {
+        Sort sort = Sort.by(Sort.Direction.fromString(direction), field);
+        return userRepository.findAll(sort);
+    }
 
 }

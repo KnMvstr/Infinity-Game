@@ -3,6 +3,7 @@ package HB_CAPE_MAK.hb_cape_makindu.controller;
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPostDTO;
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPutDTO;
 import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
+import HB_CAPE_MAK.hb_cape_makindu.entity.Platform;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import HB_CAPE_MAK.hb_cape_makindu.service.UserServiceImpl;
@@ -48,6 +49,14 @@ public class UserController {
     public ResponseEntity<List<User>> searchUser(@RequestParam String query) {
         List<User> users = userService.search(query);
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping(path = "/sorted")
+    @JsonView(JsonViews.UserPrivateView.class)
+    public List<User> getAllByFieldAndDirection(
+            @RequestParam String field,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return userService.findAllByFieldAndDirection(field, direction);
     }
 
     //Get all Users
