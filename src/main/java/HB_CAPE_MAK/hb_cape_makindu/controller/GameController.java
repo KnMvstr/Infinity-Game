@@ -62,6 +62,13 @@ public class GameController {
         return gameService.persist(gameDTO, null);
     }
 
+    // Endpoint to get the count of reviews
+    @GetMapping("/count")
+    public ResponseEntity<Long> getGamesCount() {
+        Long count = gameService.getGamesCount();
+        return ResponseEntity.ok(count);
+    }
+
     @PutMapping(path = "/edit/{id}")
     @JsonView(JsonViews.GamePrivateView.class)
     public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody GameDTO gameDTO) {

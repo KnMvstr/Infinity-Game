@@ -131,5 +131,9 @@ public class GameServiceImpl implements DAOEntityInterface<Game>, DAOSearchInter
         return entityManager.createQuery(query).getResultList();
     }
 
+    // Method to get the count of games from JPA Repository which extends GameRepository
+    public Long getGamesCount() {
+        return gameRepository.count();
+    }
 
 }

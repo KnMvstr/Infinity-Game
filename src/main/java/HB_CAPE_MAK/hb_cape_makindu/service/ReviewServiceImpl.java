@@ -78,5 +78,9 @@ public List<Review> findAllByFieldAndDirection(String field, String direction) {
         reviewRepository.deleteById(id);
     }
 
+    // Method to get the count of reviews from JPA Repository which extends ReviewRepository
+    public Long getReviewsCount() {
+        return reviewRepository.count();
+    }
 }
 

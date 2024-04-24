@@ -53,9 +53,16 @@ public class ReviewController {
         return reviewService.findModeratedReview(pseudo, id, moderate);
     }
 
+    // Endpoint to get the count of reviews
+    @GetMapping("/count")
+    public ResponseEntity<Long> getReviewsCount() {
+        Long count = reviewService.getReviewsCount();
+        return ResponseEntity.ok(count);
+    }
+
     @GetMapping(path = "/by_game/{gameId}")
     @JsonView(JsonViews.ReviewPrivateView.class)
-    public ResponseEntity<List<Review>> getAllReviewByGame(@PathVariable Game gameId) {
+    public ResponseEntity<List<Review>> getAllReviewByGame(@PathVariable Long gameId) {
         List<Review> reviews = reviewService.findAllByGame(gameId);
         if (reviews.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
