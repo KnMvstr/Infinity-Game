@@ -1,5 +1,4 @@
 package HB_CAPE_MAK.hb_cape_makindu.entity;
-
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.DiscriminatorValue;

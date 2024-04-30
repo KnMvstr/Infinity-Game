@@ -7,8 +7,6 @@ import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.service.security.JwtAuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

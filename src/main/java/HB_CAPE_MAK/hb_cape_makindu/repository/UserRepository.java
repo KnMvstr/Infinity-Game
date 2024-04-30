@@ -13,8 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByPseudo(String username);
 
-    Optional<User> findByEmail(String email);
-
     @Query("SELECT u FROM User u WHERE TYPE(u) != Moderator")
     List<User> findAllExceptModerators();
 
@@ -26,5 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE LOWER(u.pseudo) LIKE LOWER(CONCAT('%', :pseudo, '%'))")
     List<User> findByUserContainingIgnoreCase(String pseudo);
+
+    boolean existsByEmail(String email);
 }
 

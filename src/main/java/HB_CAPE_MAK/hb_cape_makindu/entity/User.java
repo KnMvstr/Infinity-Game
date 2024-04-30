@@ -1,6 +1,4 @@
 package HB_CAPE_MAK.hb_cape_makindu.entity;
-
-
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
@@ -54,7 +52,6 @@ public abstract class User  implements UserDetails {
         }
         return authorities;
     }
-
 
     @Override
     public String getPassword() {

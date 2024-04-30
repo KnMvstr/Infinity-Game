@@ -30,8 +30,11 @@ public class GameController {
 
 // Use in Angular nav search bar
     @GetMapping("/search")
+    @JsonView(JsonViews.GamePublicView.class)
     public ResponseEntity<List<Game>> searchGames(@RequestParam String query) {
+        System.out.println("Search query received: " + query);
         List<Game> games = gameService.search(query);
+        System.out.println("Number of games found: " + games.size());
         return ResponseEntity.ok(games);
     }
 

@@ -19,9 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -33,6 +31,9 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     private UserRepository userRepository;
 
     public User create(UserPostDTO userDTO) {
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new IllegalArgumentException("This email address is already in use");
+        }
         User user;
         if ("GAMER".equalsIgnoreCase(userDTO.getUserType())) {
             user = new Gamer();
@@ -52,7 +53,6 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
 
         return userRepository.saveAndFlush(user);
     }
-
 
     public List<User> getAll() {
         return userRepository.findAll();
@@ -108,11 +108,6 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = (User) userRepository.findByPseudo(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -142,4 +137,8 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
         return userRepository.findAll(sort);
     }
 
+    @Override
+    public Object findByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }

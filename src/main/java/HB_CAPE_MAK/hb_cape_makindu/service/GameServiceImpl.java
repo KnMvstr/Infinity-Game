@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,7 +48,10 @@ public class GameServiceImpl implements DAOEntityInterface<Game>, DAOSearchInter
 
     @Override
     public List<Game> search(String query) {
-        return gameRepository.findByGameContainingIgnoreCase(query);
+        if (query == null || query.trim().isEmpty()) {
+            return new ArrayList<>(); // Or handle accordingly
+        }
+        return gameRepository.findByGameContainingIgnoreCase(query.trim());
     }
 
     //Method to find by Id

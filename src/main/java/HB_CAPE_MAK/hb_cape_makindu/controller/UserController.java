@@ -2,8 +2,6 @@ package HB_CAPE_MAK.hb_cape_makindu.controller;
 
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPostDTO;
 import HB_CAPE_MAK.hb_cape_makindu.DTO.UserPutDTO;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Game;
-import HB_CAPE_MAK.hb_cape_makindu.entity.Platform;
 import HB_CAPE_MAK.hb_cape_makindu.entity.User;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import HB_CAPE_MAK.hb_cape_makindu.service.UserServiceImpl;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -25,8 +22,7 @@ public class UserController {
 
     //Create new User
     @PostMapping(path = "/create")
-    public User create(@Valid @RequestBody UserPostDTO userDTO) {
-        return userService.create(userDTO);
+    public User create(@Valid @RequestBody UserPostDTO userDTO) {return userService.create(userDTO);
     }
 
     //Get user by id
