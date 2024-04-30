@@ -8,10 +8,21 @@
         <version>3.2.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
+<!--    <groupId>HB_CAPE_MAK</groupId>-->
+<!--    <artifactId>hb_cape_makindu</artifactId>-->
+<!--    <version>0.0.1-SNAPSHOT</version>-->
+<!--    <packaging>pom</packaging>-->
+<!--    <modules>-->
+<!--        <module>backend</module>-->
+<!--        <module>frontend</module>-->
+<!--    </modules>-->
     <groupId>HB_CAPE_MAK</groupId>
     <artifactId>hb_cape_makindu</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
+
+
     <name>hb_cape_makindu</name>
     <description>Cap Entreprise HB</description>
     <properties>
