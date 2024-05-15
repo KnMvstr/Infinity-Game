@@ -1,0 +1,52 @@
+services:
+  spring:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+    - "8080:8080"
+    depends_on:
+      infinity_db:
+       condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_PASSWORD=${MYSQLDB_ROOT_PASSWORD}
+      - SPRING_DATASOURCE_URL=jdbc:mysql://infinity_db:3306/infinity_db
+    networks:
+      - infinity-network
+
+  infinity_db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=${MYSQLDB_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQLDB_ROOT_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - infinity-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  angular-app:
+    depends_on:
+      - spring
+    build:
+      context: C:\Users\g.makindu.mokonzi\OneDrive - Accenture\Documents\GIT Ken\angular-infinitygaming-app
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "4200:4200"
+    networks:
+      - infinity-network
+
+
+volumes:
+  mysql-data:
+
+networks:
+  infinity-network:
+    driver: bridge

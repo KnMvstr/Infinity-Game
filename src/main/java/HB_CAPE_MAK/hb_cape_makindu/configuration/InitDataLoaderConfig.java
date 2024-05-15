@@ -197,21 +197,19 @@ public class InitDataLoaderConfig implements CommandLineRunner {
         );
     }
 
-    private void createNomenclatures(
-            JpaRepository repository,
-            Class<?> objectClass,
+    private <T extends NomenclatureInterface, R extends JpaRepository<T, Long>> void createNomenclatures(
+            R repository,
+            Class<T> objectClass,
             List<String> items
     ) {
-        items.forEach((name) -> {
+        items.forEach(name -> {
             try {
                 Long id = (long) items.indexOf(name) + 1;
                 if (repository.findById(id).isEmpty()) {
-                    Object item = objectClass.getDeclaredConstructor().newInstance();
-                    if (item instanceof NomenclatureInterface nameEntity) {
-                        nameEntity.setId(id);
-                        nameEntity.setName(name);
-                        repository.save(nameEntity);
-                    }
+                    T item = objectClass.getDeclaredConstructor().newInstance();
+                    item.setId(id);
+                    item.setName(name);
+                    repository.save(item);
                 }
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 throw new RuntimeException(e);

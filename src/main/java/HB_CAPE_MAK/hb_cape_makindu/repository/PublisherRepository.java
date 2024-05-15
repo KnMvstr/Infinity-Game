@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface PublisherRepository extends EntityNomenclatureRepository<Publisher>, JpaRepository<Publisher, Long> {
     Optional findByName(String name);
 
-    @Query("SELECT p FROM Publisher p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    @Query("SELECT p FROM Publisher p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%%', :name, '%%'))")
     List<Publisher> findByPublisherContainingIgnoreCase(String name);
 }

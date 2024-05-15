@@ -9,7 +9,4 @@ import java.util.Optional;
 
 @Repository
 public interface BusinessModelRepository extends EntityNomenclatureRepository<BusinessModel>, JpaRepository<BusinessModel, Long> {
-
-
-
 }

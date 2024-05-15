@@ -19,10 +19,10 @@ public interface GameRepository extends EntityNomenclatureRepository<Game>, JpaR
 
     List<Game> findAllByOrderByNameDesc();
 
-    @Query("SELECT g FROM Game g WHERE LOWER(g.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    @Query("SELECT g FROM Game g WHERE LOWER(g.name) LIKE LOWER(CONCAT('%%', :name, '%%'))")
     List<Game> findByGameContainingIgnoreCase(String name);
 
-    @Query("select g from Game g join Review r on g.id = r.game.id group by g.id order by count(r.game.id) desc limit 4")
+    @Query("SELECT g from Game g join Review r on g.id = r.game.id group by g.id order by count(r.game.id) desc limit 4")
     List<Game> findTop4ByOrderByCountReview();
 
     Optional<Game> findBySlug(String slug);

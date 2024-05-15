@@ -9,5 +9,4 @@ public class HbCapeMakinduApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HbCapeMakinduApplication.class, args);
 	}
-
 }

@@ -54,11 +54,14 @@ public class GameServiceImpl implements DAOEntityInterface<Game>, DAOSearchInter
         return gameRepository.findByGameContainingIgnoreCase(query.trim());
     }
 
-    //Method to find by Id
+    //Method to find by id
     public Game findById(Long id) {
-        return gameRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+        return gameRepository.findById(id).orElseThrow(() -> {
+            logger.error("Game not found with ID: {}", id); // Log for more insight
+            return new EntityNotFoundException("Game not found with ID: " + id);
+        });
     }
+
 
     //Method to find by Slug
     public Game findBySlug(String slug) {

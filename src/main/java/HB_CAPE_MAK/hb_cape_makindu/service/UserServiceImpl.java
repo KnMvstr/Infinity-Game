@@ -23,7 +23,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEmailInterface, UserDetailsService, DAOSearchInterface {
+public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEmailInterface<Boolean>, UserDetailsService, DAOSearchInterface<User> {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -90,7 +90,7 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     }
 
 
-    // function that remove a user from database by it's id
+    // function that remove a user from database by id
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
@@ -108,8 +108,8 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = (User) userRepository.findByPseudo(username)
+    public UserDetails loadUserByUsername(String pseudo) throws UsernameNotFoundException {
+        User user = (User) userRepository.findByPseudo(pseudo)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return new org.springframework.security.core.userdetails.User(
                 user.getPseudo(),
@@ -120,7 +120,7 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
 
     @Override
     public List<User> search(String query) {
-        return userRepository.findByUserContainingIgnoreCase(query);
+        return userRepository.findByPseudoContainingIgnoreCase(query);
     }
 
     private List<GrantedAuthority> userGrantedAuthority(User user) {
@@ -138,7 +138,7 @@ public class UserServiceImpl implements DAOFindByIdInterface<User>, DAOFindByEma
     }
 
     @Override
-    public Object findByEmail(String email) {
+    public Boolean findByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
 }

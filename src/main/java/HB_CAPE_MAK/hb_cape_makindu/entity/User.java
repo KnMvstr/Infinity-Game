@@ -2,7 +2,6 @@ package HB_CAPE_MAK.hb_cape_makindu.entity;
 import HB_CAPE_MAK.hb_cape_makindu.json_views.JsonViews;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

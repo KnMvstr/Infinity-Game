@@ -12,6 +12,6 @@ import java.util.Optional;
 @Repository
 public interface ClassificationRepository extends EntityNomenclatureRepository<Classification>, JpaRepository<Classification, Long> {
 
-    Optional findByName(String name);
+    Optional <Classification> findByName(String name);
 }
 
