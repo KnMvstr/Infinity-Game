@@ -9,13 +9,13 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>HB_CAPE_MAK</groupId>
-    <artifactId>hb_cape_makindu</artifactId>
+    <groupId>InfinityGaming</groupId>
+    <artifactId>Spring</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>hb_cape_makindu</name>
-    <description>Cap Entreprise HB</description>
+    <name>InfinityGaming</name>
+    <description>Reworked for Angular fetch</description>
     <properties>
         <java.version>20</java.version>
         <maven.compiler.source>20</maven.compiler.source>
@@ -148,5 +148,3 @@
     </build>
 
 </project>
-
-

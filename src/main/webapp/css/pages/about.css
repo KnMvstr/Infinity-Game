@@ -1,0 +1,22 @@
+.top_about_wallpaper{
+    background-image: url("https://miro.medium.com/v2/resize:fit:1400/format:webp/0*45BaAhfg2NlDu5bj.jpg");
+    background-position-y: -18vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 70vh;
+    width: 100vw;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+    /*banner transformation*/
+    clip-path: polygon(0 0, 0 80%, 100% 100%, 100% 25%, 100% 0);
+}
+.storytell{
+    padding-top:65vh;
+}
+
