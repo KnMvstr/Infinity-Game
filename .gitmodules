@@ -1,0 +1,3 @@
+[submodule "angular-infinitygaming-app"]
+	path = angular-infinitygaming-app
+	url = https://github.com/KnMvstr/InfinityGamingApp.git

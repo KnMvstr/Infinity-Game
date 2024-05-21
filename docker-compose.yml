@@ -4,10 +4,10 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-    - "8080:8080"
+      - "8080:8080"
     depends_on:
       infinity_db:
-       condition: service_healthy
+        condition: service_healthy
     environment:
       - SPRING_DATASOURCE_PASSWORD=${MYSQLDB_ROOT_PASSWORD}
       - SPRING_DATASOURCE_URL=jdbc:mysql://infinity_db:3306/infinity_db
@@ -35,14 +35,13 @@ services:
     depends_on:
       - spring
     build:
-      context: C:\Users\g.makindu.mokonzi\OneDrive - Accenture\Documents\GIT Ken\angular-infinitygaming-app
+      context: ./angular-infinitygaming-app
       dockerfile: Dockerfile
     restart: always
     ports:
       - "4200:4200"
     networks:
       - infinity-network
-
 
 volumes:
   mysql-data:
